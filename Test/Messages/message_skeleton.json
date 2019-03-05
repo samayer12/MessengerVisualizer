@@ -1,28 +1,6 @@
-{
-  "participants": [
-    {
-      "name": "Alice"
-    },
-    {
-      "name": "Bob"
-    }
-  ],
-  "messages": [
-    {
-      "sender_name": "Alice",
-      "timestamp_ms": 1535232149475,
-      "content": "Hello, Bob",
-      "type": "Generic"
-    },
-    {
-      "sender_name": "Bob",
-      "timestamp_ms": 1535228809355,
-      "content": "Hello, Alice.",
-      "type": "Generic"
-    }
-  ],
-  "title": "Conversation",
-  "is_still_participant": true,
-  "thread_type": "Regular",
-  "thread_path": "Conversation_1337"
-}
+  {
+    "sender_name": "Alice",
+    "timestamp_ms": 1535232149475,
+    "content": "Hello, Bob",
+    "type": "Generic"
+  }
