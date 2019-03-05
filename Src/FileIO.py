@@ -1,8 +1,7 @@
-import json, os
-from pprint import pprint
+import json
+
 
 class FileIO:
-
     data = ""
 
     def __init__(self):
@@ -11,7 +10,7 @@ class FileIO:
     def hello(self):
         return "Hello"
 
-    def openFile(self, file):
+    def open_file(self, file):
         with open(file) as f:
             self.data = json.load(f)
         return file
