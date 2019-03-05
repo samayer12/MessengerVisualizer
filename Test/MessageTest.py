@@ -9,10 +9,10 @@ message = Message(skeleton_JSON.data)
 
 class MessageTest(unittest.TestCase):
     def parse_sender(self):
-        self.assertEqual(message.sender, "Alice")
+        self.assertEqual(message.sender_name, "Alice")
 
     def parse_timestamp(self):
-        self.assertEqual(message.timestamp, 1535232149475)
+        self.assertEqual(message.timestamp_ms, 1535232149475)
 
     def parse_content(self):
         self.assertEqual(message.content, "Hello, Bob")
