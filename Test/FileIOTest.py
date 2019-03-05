@@ -1,15 +1,7 @@
 import unittest
 from FileIO import FileIO
 
-
-def fun(x):
-    return x + 1
-
-
 class FileIOTest(unittest.TestCase):
-    def test(self):
-        self.assertEqual(fun(3), 4)
-
     def FileIORuns(self):
         self.assertEqual(FileIO.hello(self), "Hello")
 
