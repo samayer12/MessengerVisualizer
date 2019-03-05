@@ -7,9 +7,9 @@ skeleton_JSON.open_file('Messages\conversation_skeleton.json')
 conversation = Conversation(skeleton_JSON.data)
 
 
-class ConversationTest(unittest.TestCase):
+class InitializationTest(unittest.TestCase):
     def parse_participants(self):
-        self.assertEqual(conversation.participants, [{'name': 'Alice'}, {'name': 'Bob'}])
+        self.assertEqual(conversation.participants, ['Alice', 'Bob'])
 
     def parse_messages(self):
         messages_list = json.dumps(conversation.messages, default=lambda m: m.__dict__)
@@ -28,3 +28,12 @@ class ConversationTest(unittest.TestCase):
 
     def parse_thread_path(self):
         self.assertEqual(conversation.thread_path, "Conversation_1337")
+
+
+class ProcessingTest(unittest.TestCase):
+    def creates_message_counts(self):
+
+        totals = conversation.get_message_totals()
+
+        self.assertEqual(totals["Alice"], 1)
+        self.assertEqual(totals["Bob"], 1)

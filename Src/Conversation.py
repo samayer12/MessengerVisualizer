@@ -1,20 +1,28 @@
-import json
+from collections import Counter
 from Message import Message
 
 
 class Conversation:
-    participants = ""
+    participants = []
     messages = []
     title = ""
     is_still_participant = False
     thread_type = ""
     thread_path = ""
+    message_count_by_sender = {}
 
     def __init__(self, conversation_source):
-        self.participants = conversation_source["participants"]
+        for p in conversation_source["participants"]:
+            self.participants.append(p["name"])
+        # self.participants = conversation_source["participants"]
         for msg in conversation_source["messages"]:
             self.messages.append(Message(msg))
         self.title = conversation_source["title"]
         self.is_still_participant = conversation_source["is_still_participant"]
         self.thread_type = conversation_source["thread_type"]
         self.thread_path = conversation_source["thread_path"]
+
+    def get_message_totals(self):
+        counter = Counter(getattr(msg, "sender_name") for msg in self.messages)
+
+        return dict(counter)
