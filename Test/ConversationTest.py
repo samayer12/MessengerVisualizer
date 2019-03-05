@@ -1,4 +1,4 @@
-import unittest
+import unittest, json
 from Conversation import Conversation
 from FileIO import FileIO
 
@@ -12,20 +12,10 @@ class ConversationTest(unittest.TestCase):
         self.assertEqual(conversation.participants, [{'name': 'Alice'}, {'name': 'Bob'}])
 
     def parse_messages(self):
-        self.assertEqual(conversation.messages, [
-            {
-              "sender_name": "Alice",
-              "timestamp_ms": 1535232149475,
-              "content": "Hello, Bob",
-              "type": "Generic"
-            },
-            {
-              "sender_name": "Bob",
-              "timestamp_ms": 1535228809355,
-              "content": "Hello, Alice.",
-              "type": "Generic"
-            }
-          ])
+        messages_list = json.dumps(conversation.messages, default=lambda m: m.__dict__)
+        messages_list = messages_list.replace("\"", "\'")
+
+        self.assertEqual(messages_list, str((skeleton_JSON.data["messages"])))
 
     def parse_title(self):
         self.assertEqual(conversation.title, "Conversation")
