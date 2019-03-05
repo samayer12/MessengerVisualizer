@@ -3,7 +3,6 @@ from pprint import pprint
 
 class FileIO:
 
-    filesize = 0
     data = ""
 
     def __init__(self):
