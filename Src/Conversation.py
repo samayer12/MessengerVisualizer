@@ -1,3 +1,7 @@
+import json
+from Message import Message
+
+
 class Conversation:
     participants = ""
     messages = []
@@ -8,7 +12,8 @@ class Conversation:
 
     def __init__(self, conversation_source):
         self.participants = conversation_source["participants"]
-        self.messages = conversation_source["messages"]
+        for msg in conversation_source["messages"]:
+            self.messages.append(Message(msg))
         self.title = conversation_source["title"]
         self.is_still_participant = conversation_source["is_still_participant"]
         self.thread_type = conversation_source["thread_type"]
