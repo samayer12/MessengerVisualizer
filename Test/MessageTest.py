@@ -17,5 +17,9 @@ class MessageTest(unittest.TestCase):
     def parse_content(self):
         self.assertEqual(message.content, "Hello, Bob")
 
+    def parse_photos(self):
+        self.assertEqual(message.photos, "")
+
     def parse_type(self):
         self.assertEqual(message.type, "Generic")
+
