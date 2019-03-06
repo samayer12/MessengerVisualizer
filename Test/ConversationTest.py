@@ -31,9 +31,20 @@ class InitializationTest(unittest.TestCase):
 
 
 class ProcessingTest(unittest.TestCase):
-    def creates_message_counts(self):
-
+    def count_messages(self):
         totals = conversation.get_message_totals()
 
         self.assertEqual(totals["Alice"], 1)
+        self.assertEqual(totals["Bob"], 1)
+
+    def count_photos(self):
+        totals = conversation.get_photo_totals()
+
+        self.assertEqual(totals["Alice"], 1)
+        self.assertNotIn("Bob", totals)
+
+    def count_shares(self):
+        totals = conversation.get_share_totals()
+
+        self.assertNotIn("Alice", totals)
         self.assertEqual(totals["Bob"], 1)

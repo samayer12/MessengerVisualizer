@@ -20,6 +20,9 @@ class MessageTest(unittest.TestCase):
     def parse_photos(self):
         self.assertEqual(message.photos, "")
 
+    def parse_share(self):
+        self.assertEqual(message.share, "")
+
     def parse_type(self):
         self.assertEqual(message.type, "Generic")
 
