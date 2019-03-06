@@ -5,7 +5,7 @@ class FileIO:
     data = ""
 
     def __init__(self):
-        print("File IO starting")
+        print("File IO starting\n ")
 
     def hello(self):
         return "Hello"
@@ -13,4 +13,4 @@ class FileIO:
     def open_file(self, file):
         with open(file) as f:
             self.data = json.load(f)
-        return file
+        return self.data
