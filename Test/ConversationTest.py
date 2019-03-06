@@ -23,11 +23,10 @@ class InitializationTest(unittest.TestCase):
     def test_parse_messages(self):
         filtered_messages = del_none(conversation.messages)
 
-
         messages_list = json.dumps(filtered_messages, default=lambda m: m.__dict__)
         messages_list = messages_list.replace("\"", "\'")
 
-        self.maxDiff=None
+        self.maxDiff = None
         self.assertEqual(messages_list, str((skeleton_JSON.data["messages"])))
 
     def test_parse_title(self):
@@ -61,3 +60,19 @@ class ProcessingTest(unittest.TestCase):
 
         self.assertNotIn("Alice", totals)
         self.assertEqual(totals["Bob"], 1)
+
+    def test_prepare_all_messages(self):
+        raw_text = conversation.get_text()
+
+        self.assertEqual(raw_text,
+                         u"Hello, Bob\n"
+                         u"Hello, Alice.\n"
+                         )
+
+    def test_get_messages_by_sender(self):
+        raw_text = conversation.get_text_by_sender()
+
+        self.assertEqual(raw_text,
+                         {"Alice": u"Hello, Bob\n",
+                          "Bob": u"Hello, Alice.\n"}
+                         )
