@@ -7,6 +7,7 @@ class Message:
     timestamp_ms = ''
     content = ''
     photos = ''
+    share = ''
     type = ''
 
     def __init__(self, message_source):
@@ -21,5 +22,10 @@ class Message:
             self.photos = message_source["photos"]
         except KeyError:
             self.photos = ""
+            pass
+        try:
+            self.share = message_source["share"]
+        except KeyError:
+            self.share = ""
             pass
         self.type = message_source["type"]

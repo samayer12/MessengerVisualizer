@@ -23,6 +23,20 @@ class Conversation:
         self.thread_path = conversation_source["thread_path"]
 
     def get_message_totals(self):
-        counter = Counter(getattr(msg, "sender_name") for msg in self.messages)
+        counter = Counter(msg.sender_name for msg in self.messages)
+
+        return dict(counter)
+
+    def get_photo_totals(self):
+        photo_messages = [msg for msg in self.messages if msg.photos != ""]
+
+        counter = Counter(msg.sender_name for msg in photo_messages)
+
+        return dict(counter)
+
+    def get_share_totals(self):
+        share_messages = [msg for msg in self.messages if msg.share != ""]
+
+        counter = Counter(msg.sender_name for msg in share_messages)
 
         return dict(counter)
