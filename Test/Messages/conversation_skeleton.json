@@ -19,6 +19,24 @@
       "timestamp_ms": 1535228809355,
       "content": "Hello, Alice.",
       "type": "Generic"
+    },
+    {
+      "sender_name": "Alice",
+      "timestamp_ms": 1535223937999,
+      "photos": [
+        {
+          "uri": "messages/path/to/needs_moar.jpg"
+        }
+      ],
+      "type": "Generic"
+    },
+    {
+      "sender_name": "Bob",
+      "timestamp_ms": 1535173804966,
+      "share": {
+        "link": "https://www.youtube.com/watch?v=oHg5SJYRHA0"
+      },
+      "type": "Share"
     }
   ],
   "title": "Conversation",
