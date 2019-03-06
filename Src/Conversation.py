@@ -56,3 +56,16 @@ class Conversation:
             messages_by_sender[p] = raw_text
 
         return messages_by_sender
+
+    def get_type_count(self):
+        messages_by_type = {"Content":0, "Photos": 0, "Share": 0}
+
+        for msg in self.messages:
+            if msg.content != "":
+                messages_by_type["Content"] += 1
+            if msg.photos != "":
+                messages_by_type["Photos"] += 1
+            if msg.share != "":
+                messages_by_type["Share"] += 1
+
+        return messages_by_type
