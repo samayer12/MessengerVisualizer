@@ -46,7 +46,7 @@ class ProcessingTest(unittest.TestCase):
     def test_count_messages(self):
         totals = conversation.get_message_totals()
 
-        self.assertEqual(totals["Alice"], 2)
+        self.assertEqual(totals["Alice"], 3)
         self.assertEqual(totals["Bob"], 2)
 
     def test_count_photos(self):
@@ -67,12 +67,13 @@ class ProcessingTest(unittest.TestCase):
         self.assertEqual(raw_text,
                          u"Hello, Bob\n"
                          u"Hello, Alice.\n"
+                         u"How are you?\n"
                          )
 
     def test_get_messages_by_sender(self):
         raw_text = conversation.get_text_by_sender()
 
         self.assertEqual(raw_text,
-                         {"Alice": u"Hello, Bob\n",
+                         {"Alice": u"Hello, Bob\nHow are you?\n",
                           "Bob": u"Hello, Alice.\n"}
                          )
