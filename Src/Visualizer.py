@@ -1,7 +1,16 @@
-import sys, getopt, os
+import sys, getopt, os, nltk
 from FileIO import FileIO
 from Conversation import Conversation
 
+
+def count_word_frequency(conversation):
+
+    tokens = [t for t in conversation.split()]
+    freq = nltk.FreqDist(tokens)
+    for key, val in freq.items():
+        print(str(key) + ':' +str(val))
+
+    freq.plot(50, cumulative=False)
 
 def main(argv):
     inputfile = ''
@@ -24,6 +33,9 @@ def main(argv):
 
     fileIO = FileIO()
     conversation = Conversation(fileIO.open_file(inputfile))
+
+    count_word_frequency(conversation.get_text())
+
     # print(conversation.get_text())
 
     print(conversation.get_text_by_sender())
