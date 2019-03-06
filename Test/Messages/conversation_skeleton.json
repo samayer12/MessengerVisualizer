@@ -37,6 +37,12 @@
         "link": "https://www.youtube.com/watch?v=oHg5SJYRHA0"
       },
       "type": "Share"
+    },
+    {
+      "sender_name": "Alice",
+      "timestamp_ms": 1535232149475,
+      "content": "How are you?",
+      "type": "Generic"
     }
   ],
   "title": "Conversation",
