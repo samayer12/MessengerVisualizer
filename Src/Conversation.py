@@ -40,3 +40,19 @@ class Conversation:
         counter = Counter(msg.sender_name for msg in share_messages)
 
         return dict(counter)
+
+    def get_text(self):
+        raw_text = ""
+        raw_text = raw_text.join([(msg.content + "\n") for msg in self.messages if msg.content != ""])
+        return raw_text
+
+    def get_text_by_sender(self):
+        messages_by_sender = {}
+
+        for p in self.participants:
+            raw_text = ""
+            raw_text = raw_text.join([(msg.content + "\n") for msg in self.messages
+                                      if (msg.content != "" and msg.sender_name == p)])
+            messages_by_sender[p] = raw_text
+
+        return messages_by_sender
