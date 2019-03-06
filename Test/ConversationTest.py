@@ -77,3 +77,15 @@ class ProcessingTest(unittest.TestCase):
                          {"Alice": u"Hello, Bob\nHow are you?\n",
                           "Bob": u"Hello, Alice.\n"}
                          )
+
+    def  test_get_message_count_by_type(self):
+        message_types = conversation.get_type_count()
+
+        self.assertEqual(message_types,
+                         {"Content": 3,
+                          "Photos": 1,
+                          "Share": 1}
+                          )
+
+    def test_get_message_count_by_type_for_single_participant(self):
+        pass
