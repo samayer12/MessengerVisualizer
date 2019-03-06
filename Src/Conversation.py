@@ -1,4 +1,5 @@
 from collections import Counter
+
 from Message import Message
 
 
@@ -14,7 +15,6 @@ class Conversation:
     def __init__(self, conversation_source):
         for p in conversation_source["participants"]:
             self.participants.append(p["name"])
-        # self.participants = conversation_source["participants"]
         for msg in conversation_source["messages"]:
             self.messages.append(Message(msg))
         self.title = conversation_source["title"]

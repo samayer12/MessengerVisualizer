@@ -5,9 +5,9 @@ class Message:
 
     sender_name = ''
     timestamp_ms = ''
-    content = ''
-    photos = ''
-    share = ''
+    content = None
+    photos = None
+    share = None
     type = ''
 
     def __init__(self, message_source):
