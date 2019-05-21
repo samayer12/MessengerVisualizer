@@ -3,14 +3,19 @@ from FileIO import FileIO
 from Conversation import Conversation
 
 
-def count_word_frequency(conversation):
+def strip_common(words, wordlist):
+    return [word for word in words if word not in wordlist]
 
+
+def count_word_frequency(conversation, wordlist):
     tokens = [t for t in conversation.split()]
+    tokens = strip_common(tokens, wordlist)
     freq = nltk.FreqDist(tokens)
     for key, val in freq.items():
-        print(str(key) + ':' +str(val))
+        print(str(key) + ':' + str(val))
 
     freq.plot(50, cumulative=False)
+
 
 def main(argv):
     inputfile = ''
@@ -32,9 +37,9 @@ def main(argv):
             outputdir = arg
 
     fileIO = FileIO()
-    conversation = Conversation(fileIO.open_file(inputfile))
+    conversation = Conversation(fileIO.open_json(inputfile))
 
-    count_word_frequency(conversation.get_text())
+    count_word_frequency(conversation.get_text(), fileIO.open_text(wordlist))
 
     # print(conversation.get_text())
 
