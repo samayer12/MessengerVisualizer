@@ -3,7 +3,7 @@ from Conversation import Conversation
 from FileIO import FileIO
 
 skeleton_JSON = FileIO()
-skeleton_JSON.open_file('Messages\conversation_skeleton.json')
+skeleton_JSON.open_json('Messages\conversation_skeleton.json')
 conversation = Conversation(skeleton_JSON.data)
 
 
