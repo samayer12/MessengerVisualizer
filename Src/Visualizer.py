@@ -20,21 +20,25 @@ def count_word_frequency(conversation, wordlist):
 def main(argv):
     inputfile = ''
     outputdir = ''
+    wordlist = ''
 
     try:
-        opts, args = getopt.getopt(argv, "f:oh", ["ffile=", "odir="])
+        opts, args = getopt.getopt(argv, "f:w:oh", ["ffile=", "odir=", "wlist="])
     except getopt.GetoptError:
         print('Error, check file paths and run with these options:\n'
-              'Visualizer.py -f <inputfile> -o <outputfile>')
+              'Visualizer.py -f <inputfile> [-o <outputfile>] [-w <wordlist>]')
         sys.exit(2)
     for opt, arg in opts:
         if opt == '-h':
-            print('Visualizer.py -f <inputfile> -o <outputdir>')
+            print('Visualizer.py -f <inputfile> [-o <outputfile>] [-w <wordlist>]')
             sys.exit()
         elif opt in ("-f", "--ifile"):
             inputfile = arg
+        elif opt in ("-w", "--wordlist"):
+            wordlist = arg
         elif opt in ("-o", "--ofile"):
             outputdir = arg
+
 
     fileIO = FileIO()
     conversation = Conversation(fileIO.open_json(inputfile))
