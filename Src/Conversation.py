@@ -43,7 +43,8 @@ class Conversation:
 
     def get_text(self):
         raw_text = ""
-        raw_text = raw_text.join([(msg.content + "\n") for msg in self.messages if msg.content != ""])
+        raw_text = raw_text.join([(str(msg.timestamp_ms) + " " + msg.sender_name + ": " + msg.content + "\n")
+                                  for msg in self.messages if msg.content != ""])
         return raw_text
 
     def get_text_by_sender(self):
@@ -51,7 +52,7 @@ class Conversation:
 
         for p in self.participants:
             raw_text = ""
-            raw_text = raw_text.join([(msg.content + "\n") for msg in self.messages
+            raw_text = raw_text.join([(str(msg.timestamp_ms) + " " + msg.content + "\n") for msg in self.messages
                                       if (msg.content != "" and msg.sender_name == p)])
             messages_by_sender[p] = raw_text
 
