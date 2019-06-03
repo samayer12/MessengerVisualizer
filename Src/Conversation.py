@@ -1,3 +1,4 @@
+import datetime
 from collections import Counter
 
 from Message import Message
@@ -48,8 +49,8 @@ class Conversation:
 
     def get_messages(self):
         raw_messages = ""
-        raw_messages = raw_messages.join([(str(msg.timestamp_ms) + ":" + msg.sender_name + ": " + msg.content + "\n")
-                                  for msg in self.messages if msg.content != ""])
+        raw_messages = raw_messages.join([(msg.get_datetime() + ": " + msg.sender_name + ": " + msg.content + "\n")
+                                          for msg in self.messages if msg.content != ""])
         return raw_messages
 
     def get_messages_by_sender(self):
@@ -57,8 +58,8 @@ class Conversation:
 
         for p in self.participants:
             raw_messages = ""
-            raw_messages = raw_messages.join([(str(msg.timestamp_ms) + ": " + msg.content + "\n") for msg in self.messages
-                                      if (msg.content != "" and msg.sender_name == p)])
+            raw_messages = raw_messages.join([(msg.get_datetime() + " : " + msg.content + "\n")
+                                              for msg in self.messages if (msg.content != "" and msg.sender_name == p)])
             messages_by_sender[p] = raw_messages
 
         return messages_by_sender

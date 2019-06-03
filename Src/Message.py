@@ -29,3 +29,6 @@ class Message:
             self.share = ""
             pass
         self.type = message_source["type"]
+
+    def get_datetime(self):
+        return datetime.datetime.utcfromtimestamp(self.timestamp_ms / 1000).strftime('%Y-%m-%d %H:%M:%S')

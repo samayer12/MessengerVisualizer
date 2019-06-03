@@ -39,13 +39,13 @@ def main(argv):
         elif opt in ("-o", "--ofile"):
             outputdir = arg
 
-
     fileIO = FileIO()
     conversation = Conversation(fileIO.open_json(inputfile))
 
     count_word_frequency(conversation.get_text(), fileIO.open_text(wordlist))
 
     print(conversation.get_messages())
+    print(conversation.get_messages_by_sender())
 
 
 if __name__ == "__main__":
