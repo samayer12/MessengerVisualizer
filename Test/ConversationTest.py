@@ -61,21 +61,30 @@ class ProcessingTest(unittest.TestCase):
         self.assertNotIn("Alice", totals)
         self.assertEqual(totals["Bob"], 1)
 
-    def test_prepare_all_messages(self):
+    def test_get_text(self):
         raw_text = conversation.get_text()
 
         self.assertEqual(raw_text,
-                         u"1535232149475:Alice:Hello, Bob\n"
-                         u"1535228809355:Bob:Hello, Alice.\n"
-                         u"1535232149475:Alice:How are you?\n"
+                         u"Hello, Bob\n"
+                         u"Hello, Alice.\n"
+                         u"How are you?\n"
+                         )
+
+    def test_prepare_all_messages(self):
+        raw_text = conversation.get_messages()
+
+        self.assertEqual(raw_text,
+                         u"1535232149475:Alice: Hello, Bob\n"
+                         u"1535228809355:Bob: Hello, Alice.\n"
+                         u"1535232149475:Alice: How are you?\n"
                          )
 
     def test_get_messages_by_sender(self):
-        raw_text = conversation.get_text_by_sender()
+        raw_text = conversation.get_messages_by_sender()
 
         self.assertEqual(raw_text,
-                         {"Alice": u"1535232149475:Hello, Bob\n1535232149475:How are you?\n",
-                          "Bob": u"1535228809355:Hello, Alice.\n"}
+                         {"Alice": u"1535232149475: Hello, Bob\n1535232149475: How are you?\n",
+                          "Bob": u"1535228809355: Hello, Alice.\n"}
                          )
 
     def  test_get_message_count_by_type(self):
