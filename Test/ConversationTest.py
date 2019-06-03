@@ -41,7 +41,6 @@ class InitializationTest(unittest.TestCase):
     def test_parse_thread_path(self):
         self.assertEqual(conversation.thread_path, "Conversation_1337")
 
-
 class ProcessingTest(unittest.TestCase):
     def test_count_messages(self):
         totals = conversation.get_message_totals()
@@ -74,9 +73,9 @@ class ProcessingTest(unittest.TestCase):
         raw_text = conversation.get_messages()
 
         self.assertEqual(raw_text,
-                         u"1535232149475:Alice: Hello, Bob\n"
-                         u"1535228809355:Bob: Hello, Alice.\n"
-                         u"1535232149475:Alice: How are you?\n"
+                         u"2018-08-25 21:22:29:Alice: Hello, Bob\n"
+                         u"2018-08-25 20:26:49:Bob: Hello, Alice.\n"
+                         u"2018-08-25 21:22:29:Alice: How are you?\n"
                          )
 
     def test_get_messages_by_sender(self):
