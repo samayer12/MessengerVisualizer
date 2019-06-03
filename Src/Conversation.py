@@ -42,19 +42,24 @@ class Conversation:
         return dict(counter)
 
     def get_text(self):
-        raw_text = ""
-        raw_text = raw_text.join([(str(msg.timestamp_ms) + " " + msg.sender_name + ": " + msg.content + "\n")
-                                  for msg in self.messages if msg.content != ""])
-        return raw_text
+        raw_messages = ""
+        raw_messages = raw_messages.join([(msg.content + "\n") for msg in self.messages if msg.content != ""])
+        return raw_messages
 
-    def get_text_by_sender(self):
+    def get_messages(self):
+        raw_messages = ""
+        raw_messages = raw_messages.join([(str(msg.timestamp_ms) + ":" + msg.sender_name + ": " + msg.content + "\n")
+                                  for msg in self.messages if msg.content != ""])
+        return raw_messages
+
+    def get_messages_by_sender(self):
         messages_by_sender = {}
 
         for p in self.participants:
-            raw_text = ""
-            raw_text = raw_text.join([(str(msg.timestamp_ms) + " " + msg.content + "\n") for msg in self.messages
+            raw_messages = ""
+            raw_messages = raw_messages.join([(str(msg.timestamp_ms) + ": " + msg.content + "\n") for msg in self.messages
                                       if (msg.content != "" and msg.sender_name == p)])
-            messages_by_sender[p] = raw_text
+            messages_by_sender[p] = raw_messages
 
         return messages_by_sender
 
@@ -70,3 +75,5 @@ class Conversation:
                 messages_by_type["Share"] += 1
 
         return messages_by_type
+
+        pass

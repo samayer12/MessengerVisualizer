@@ -45,9 +45,7 @@ def main(argv):
 
     count_word_frequency(conversation.get_text(), fileIO.open_text(wordlist))
 
-    # print(conversation.get_text())
-
-    print(conversation.get_text_by_sender())
+    print(conversation.get_messages())
 
 
 if __name__ == "__main__":
