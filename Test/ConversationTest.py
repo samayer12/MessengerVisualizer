@@ -95,5 +95,17 @@ class ProcessingTest(unittest.TestCase):
                           "Share": 1}
                           )
 
+    def test_get_message_count_by_day(self):
+        message_counts = conversation.get_by_day()
+
+        self.assertEqual(message_counts,
+                         {"Monday": 0,
+                          "Tuesday": 0,
+                          "Wednesday": 0,
+                          "Thursday": 0,
+                          "Friday": 0,
+                          "Saturday": 5,
+                          "Sunday": 0})
+
     def test_get_message_count_by_type_for_single_participant(self):
         pass
