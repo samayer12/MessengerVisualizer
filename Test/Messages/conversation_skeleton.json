@@ -16,13 +16,13 @@
     },
     {
       "sender_name": "Bob",
-      "timestamp_ms": 1535228809355,
+      "timestamp_ms": 1566811349000,
       "content": "Hello, Alice.",
       "type": "Generic"
     },
     {
       "sender_name": "Alice",
-      "timestamp_ms": 1535223937999,
+      "timestamp_ms": 1566897749000,
       "photos": [
         {
           "uri": "messages/path/to/needs_moar.jpg"
@@ -32,7 +32,7 @@
     },
     {
       "sender_name": "Bob",
-      "timestamp_ms": 1535173804966,
+      "timestamp_ms": 1566984149000,
       "share": {
         "link": "https://www.youtube.com/watch?v=oHg5SJYRHA0"
       },
@@ -40,8 +40,20 @@
     },
     {
       "sender_name": "Alice",
-      "timestamp_ms": 1535232149475,
+      "timestamp_ms": 1567070549000,
       "content": "How are you?",
+      "type": "Generic"
+    },
+        {
+      "sender_name": "Bob",
+      "timestamp_ms": 1567156949000,
+      "content": "I am well, thank you.",
+      "type": "Generic"
+    },
+    {
+      "sender_name": "Alice",
+      "timestamp_ms": 1567329749000,
+      "content": "I am glad to hear that.",
       "type": "Generic"
     }
   ],
