@@ -1,4 +1,4 @@
-import unittest, json
+import unittest, json, datetime
 from Conversation import Conversation
 from FileIO import FileIO
 
@@ -21,10 +21,14 @@ class InitializationTest(unittest.TestCase):
         self.assertEqual(conversation.participants, ['Alice', 'Bob'])
 
     def test_parse_messages(self):
+        for msg in conversation.messages:
+            # Kludge because I store timestamps as datetime, please forgive me
+            msg.timestamp = int(msg.timestamp.timestamp() * 1000 - 18000000)
         filtered_messages = del_none(conversation.messages)
 
         messages_list = json.dumps(filtered_messages, default=lambda m: m.__dict__)
         messages_list = messages_list.replace("\"", "\'")
+        messages_list = messages_list.replace("timestamp", "timestamp_ms")
 
         self.maxDiff = None
         self.assertEqual(messages_list, str((skeleton_JSON.data["messages"])))
@@ -45,8 +49,8 @@ class ProcessingTest(unittest.TestCase):
     def test_count_messages(self):
         totals = conversation.get_message_totals()
 
-        self.assertEqual(totals["Alice"], 3)
-        self.assertEqual(totals["Bob"], 2)
+        self.assertEqual(totals["Alice"], 4)
+        self.assertEqual(totals["Bob"], 3)
 
     def test_count_photos(self):
         totals = conversation.get_photo_totals()
@@ -67,30 +71,35 @@ class ProcessingTest(unittest.TestCase):
                          u"Hello, Bob\n"
                          u"Hello, Alice.\n"
                          u"How are you?\n"
+                         u"I am well, thank you.\n"
+                         u"I am glad to hear that.\n"
                          )
 
     def test_prepare_all_messages(self):
         raw_text = conversation.get_messages()
 
         self.assertEqual(raw_text,
-                         u"2018-08-25 21:22:29:Alice: Hello, Bob\n"
-                         u"2018-08-25 20:26:49:Bob: Hello, Alice.\n"
-                         u"2018-08-25 21:22:29:Alice: How are you?\n"
+                         u"2018-08-25 21:22:29: Alice: Hello, Bob\n"
+                         u"2019-08-26 09:22:29: Bob: Hello, Alice.\n"
+                         u"2019-08-29 09:22:29: Alice: How are you?\n"
+                         u"2019-08-30 09:22:29: Bob: I am well, thank you.\n"
+                         u"2019-09-01 09:22:29: Alice: I am glad to hear that.\n"
                          )
 
     def test_get_messages_by_sender(self):
         raw_text = conversation.get_messages_by_sender()
 
         self.assertEqual(raw_text,
-                         {"Alice": u"1535232149475: Hello, Bob\n1535232149475: How are you?\n",
-                          "Bob": u"1535228809355: Hello, Alice.\n"}
+                         {"Alice": u"2018-08-25 21:22:29: Hello, Bob\n2019-08-29 09:22:29: How are you?\n"
+                                   u"2019-09-01 09:22:29: I am glad to hear that.\n",
+                          "Bob": u"2019-08-26 09:22:29: Hello, Alice.\n2019-08-30 09:22:29: I am well, thank you.\n"}
                          )
 
     def  test_get_message_count_by_type(self):
         message_types = conversation.get_type_count()
 
         self.assertEqual(message_types,
-                         {"Content": 3,
+                         {"Content": 5,
                           "Photos": 1,
                           "Share": 1}
                           )
