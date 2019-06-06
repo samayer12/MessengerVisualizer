@@ -78,3 +78,10 @@ class Conversation:
         return messages_by_type
 
         pass
+
+    def get_by_day(self):
+
+        days = []
+        for msg in self.messages:
+            days.append((msg.timestamp.strftime("%A")))
+        return Counter(days)
