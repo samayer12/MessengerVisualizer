@@ -58,7 +58,7 @@ class Conversation:
 
         for p in self.participants:
             raw_messages = ""
-            raw_messages = raw_messages.join([(msg.get_datetime() + " : " + msg.content + "\n")
+            raw_messages = raw_messages.join([(msg.get_datetime() + ": " + msg.content + "\n")
                                               for msg in self.messages if (msg.content != "" and msg.sender_name == p)])
             messages_by_sender[p] = raw_messages
 
