@@ -13,7 +13,7 @@ class MessageTest(unittest.TestCase):
         self.assertEqual(message.sender_name, "Alice")
 
     def test_parse_timestamp(self):
-        self.assertEqual(message.timestamp_ms, 1535232149475)
+        self.assertEqual(message.timestamp, 1535232149475)
 
     def test_parse_content(self):
         self.assertEqual(message.content, "Hello, Bob")

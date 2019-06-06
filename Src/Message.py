@@ -4,7 +4,7 @@ import datetime
 class Message:
 
     sender_name = ''
-    timestamp_ms = ''
+    timestamp = ''
     content = None
     photos = None
     share = None
@@ -12,7 +12,7 @@ class Message:
 
     def __init__(self, message_source):
         self.sender_name = message_source["sender_name"]
-        self.timestamp_ms = message_source["timestamp_ms"]
+        self.timestamp = datetime.datetime.utcfromtimestamp(message_source["timestamp_ms"] / 1000)
         try:
             self.content = message_source["content"]
         except KeyError:
@@ -31,4 +31,4 @@ class Message:
         self.type = message_source["type"]
 
     def get_datetime(self):
-        return datetime.datetime.utcfromtimestamp(self.timestamp_ms / 1000).strftime('%Y-%m-%d %H:%M:%S')
+        return self.timestamp.strftime('%Y-%m-%d %H:%M:%S')
