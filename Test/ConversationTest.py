@@ -79,8 +79,8 @@ class ProcessingTest(unittest.TestCase):
         raw_text = conversation.get_messages()
 
         self.assertEqual(raw_text,
-                         u"2018-08-25 21:22:29: Alice: Hello, Bob\n"
-                         u"2019-08-26 09:22:29: Bob: Hello, Alice.\n"
+                         u"2019-08-24 02:32:23: Alice: Hello, Bob\n"
+                         u"2019-08-26 14:22:29: Bob: Hello, Alice.\n"
                          u"2019-08-29 09:22:29: Alice: How are you?\n"
                          u"2019-08-30 09:22:29: Bob: I am well, thank you.\n"
                          u"2019-09-01 09:22:29: Alice: I am glad to hear that.\n"
@@ -90,9 +90,9 @@ class ProcessingTest(unittest.TestCase):
         raw_text = conversation.get_messages_by_sender()
 
         self.assertEqual(raw_text,
-                         {"Alice": u"2018-08-25 21:22:29: Hello, Bob\n2019-08-29 09:22:29: How are you?\n"
+                         {"Alice": u"2019-08-24 02:32:23: Hello, Bob\n2019-08-29 09:22:29: How are you?\n"
                                    u"2019-09-01 09:22:29: I am glad to hear that.\n",
-                          "Bob": u"2019-08-26 09:22:29: Hello, Alice.\n2019-08-30 09:22:29: I am well, thank you.\n"}
+                          "Bob": u"2019-08-26 14:22:29: Hello, Alice.\n2019-08-30 09:22:29: I am well, thank you.\n"}
                          )
 
     def  test_get_message_count_by_type(self):
