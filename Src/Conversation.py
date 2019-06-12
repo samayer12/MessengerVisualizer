@@ -1,7 +1,5 @@
-from collections import Counter,
-
+from collections import Counter
 from Message import Message
-
 
 class Conversation:
     participants = []
