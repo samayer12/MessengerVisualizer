@@ -1,5 +1,4 @@
-import datetime
-from collections import Counter
+from collections import Counter,
 
 from Message import Message
 
@@ -88,7 +87,7 @@ class Conversation:
 
     def get_by_hour(self):
 
-        hours = []
+        hours = dict.fromkeys(range(24), 0)
         for msg in self.messages:
-            hours.append((msg.timestamp.strftime("%H")))
-        return Counter(hours)
+            hours[int((msg.timestamp.strftime("%H")))] += 1
+        return sorted(hours.items(), key=lambda kv: (kv[0], kv[1]))

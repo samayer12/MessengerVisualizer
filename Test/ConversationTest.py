@@ -120,9 +120,10 @@ class ProcessingTest(unittest.TestCase):
         message_counts = conversation.get_by_hour()
 
         self.assertEqual(message_counts,
-                         {"02": 1,
-                          "09": 5,
-                          "14": 1})
+                         [(0, 0), (1, 0), (2, 1), (3, 0), (4, 0), (5, 0),
+                          (6, 0), (7, 0), (8, 0), (9, 5), (10, 0), (11, 0),
+                          (12, 0), (13, 0), (14, 1), (15, 0), (16, 0), (17, 0),
+                          (18, 0), (19, 0), (20, 0), (21, 0), (22, 0), (23, 0)])
 
     def test_get_message_count_by_type_for_single_participant(self):
         pass
