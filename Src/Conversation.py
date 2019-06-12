@@ -85,3 +85,10 @@ class Conversation:
         for msg in self.messages:
             days.append((msg.timestamp.strftime("%A")))
         return Counter(days)
+
+    def get_by_hour(self):
+
+        hours = []
+        for msg in self.messages:
+            hours.append((msg.timestamp.strftime("%H")))
+        return Counter(hours)

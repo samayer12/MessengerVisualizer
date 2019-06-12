@@ -116,5 +116,13 @@ class ProcessingTest(unittest.TestCase):
                           "Saturday": 1,
                           "Sunday": 1})
 
+    def test_get_message_count_by_hour(self):
+        message_counts = conversation.get_by_hour()
+
+        self.assertEqual(message_counts,
+                         {"02": 1,
+                          "09": 5,
+                          "14": 1})
+
     def test_get_message_count_by_type_for_single_participant(self):
         pass
