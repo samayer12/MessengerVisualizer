@@ -1,5 +1,7 @@
 from collections import Counter
 from Message import Message
+from nltk import sent_tokenize, word_tokenize
+from string import punctuation
 
 class Conversation:
     participants = []
@@ -89,3 +91,9 @@ class Conversation:
         for msg in self.messages:
             hours[int((msg.timestamp.strftime("%H")))] += 1
         return sorted(hours.items(), key=lambda kv: (kv[0], kv[1]))
+
+    def get_average_length(self, messages):
+        words = word_tokenize(messages)
+        words = [''.join(char for char in strings if char not in punctuation) for strings in words]
+        words = [string for string in words if string]
+        return len(words)/len(sent_tokenize(messages))

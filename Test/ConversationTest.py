@@ -75,6 +75,10 @@ class ProcessingTest(unittest.TestCase):
                          u"I am glad to hear that.\n"
                          )
 
+    def test_get_average_message_length(self):
+        avg_message = conversation.get_average_length(conversation.get_text())
+        self.assertEqual(avg_message, 4.5)
+
     def test_prepare_all_messages(self):
         raw_text = conversation.get_messages()
 
@@ -95,7 +99,7 @@ class ProcessingTest(unittest.TestCase):
                           "Bob": u"2019-08-26 14:22:29: Hello, Alice.\n2019-08-30 09:22:29: I am well, thank you.\n"}
                          )
 
-    def  test_get_message_count_by_type(self):
+    def test_get_message_count_by_type(self):
         message_types = conversation.get_type_count()
 
         self.assertEqual(message_types,
