@@ -92,7 +92,7 @@ class Conversation:
             hours[int((msg.timestamp.strftime("%H")))] += 1
         return sorted(hours.items(), key=lambda kv: (kv[0], kv[1]))
 
-    def get_average_length(self, messages):
+    def get_average_message_length(self, messages):
         words = word_tokenize(messages)
         words = [''.join(char for char in strings if char not in punctuation) for strings in words]
         words = [string for string in words if string]
