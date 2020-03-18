@@ -8,7 +8,7 @@ class FileIOTest(unittest.TestCase):
 
     def test_OpenSpecifiedFileInSubDir(self):
         f = FileIO()
-        self.assertEqual(f.open_json('Messages\Erin\message.json'), json.load(open('Messages\Erin\message.json')))
+        self.assertEqual(f.open_json('Messages/message.json'), json.load(open('Messages/message.json')))
         self.assertGreater(f.data.__len__(), 0)
 
     def test_open_text_StripsCommentsFromTxtFiles(self):
