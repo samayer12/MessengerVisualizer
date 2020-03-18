@@ -1,6 +1,6 @@
 import sys, getopt, os, nltk
-from FileIO import FileIO
-from Conversation import Conversation
+from src.FileIO import FileIO
+from src.Conversation import Conversation
 
 
 def strip_common(words, wordlist):

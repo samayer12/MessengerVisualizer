@@ -1,7 +1,7 @@
 import unittest
 
-from FileIO import FileIO
-from Message import Message
+from src.FileIO import FileIO
+from src.Message import Message
 
 skeleton_JSON = FileIO()
 skeleton_JSON.open_json('Messages\message_skeleton.json')
