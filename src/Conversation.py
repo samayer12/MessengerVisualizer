@@ -1,5 +1,5 @@
 from collections import Counter
-from Message import Message
+from src.Message import Message
 from nltk import sent_tokenize, word_tokenize
 from string import punctuation
 

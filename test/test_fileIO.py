@@ -1,5 +1,5 @@
 import unittest, json
-from FileIO import FileIO
+from src.FileIO import FileIO
 
 
 class FileIOTest(unittest.TestCase):
