@@ -7,3 +7,7 @@ class VisualizationTest(unittest.TestCase):
                  'back', 'royal', 'hope']
         wordlist = ['back', 'royal', 'hope', 'useless', 'talk', 'interesting', 'hideous']
         self.assertNotIn(strip_common(words, wordlist), wordlist)
+
+
+if __name__ == '__main__':
+    unittest.main()
