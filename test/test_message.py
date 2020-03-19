@@ -1,5 +1,5 @@
 import unittest
-
+from datetime import datetime
 from src.FileIO import FileIO
 from src.Message import Message
 
@@ -13,7 +13,8 @@ class MessageTest(unittest.TestCase):
         self.assertEqual(message.sender_name, "Alice")
 
     def test_parse_timestamp(self):
-        self.assertEqual(message.timestamp.timestamp() *1000 - 18000000, 1535232149475)
+        self.assertEqual(1535232149.475,
+                         message.timestamp.timestamp())
 
     def test_parse_content(self):
         self.assertEqual(message.content, "Hello, Bob")
