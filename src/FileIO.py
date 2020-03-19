@@ -1,10 +1,12 @@
-import json, os
+import json
+import os
 
 
 class FileIO:
-    data = ""
+
 
     def __init__(self):
+        self.data = ""
         print("File IO starting\n ")
 
     def hello(self):
