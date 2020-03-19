@@ -69,20 +69,20 @@ class ProcessingTest(unittest.TestCase):
     def test_count_messages(self):
         totals = self.conversation.get_message_totals()
 
-        self.assertEqual(totals["Alice"], 4)
-        self.assertEqual(totals["Bob"], 3)
+        self.assertEqual(4, totals["Alice"])
+        self.assertEqual(3, totals["Bob"])
 
     def test_count_photos(self):
         totals = self.conversation.get_photo_totals()
 
-        self.assertEqual(totals["Alice"], 1)
+        self.assertEqual(1, totals["Alice"])
         self.assertNotIn("Bob", totals)
 
     def test_count_shares(self):
         totals = self.conversation.get_share_totals()
 
         self.assertNotIn("Alice", totals)
-        self.assertEqual(totals["Bob"], 1)
+        self.assertEqual(1, totals["Bob"])
 
     def test_get_text(self):
         raw_text = self.conversation.get_text()
@@ -97,57 +97,59 @@ class ProcessingTest(unittest.TestCase):
 
     def test_get_average_message_length(self):
         avg_message = self.conversation.get_average_message_length(self.conversation.get_text())
-        self.assertEqual(avg_message, 4.5)
+        self.assertEqual(4.5, avg_message)
 
     def test_prepare_all_messages(self):
         raw_text = self.conversation.get_messages()
 
-        self.assertEqual(raw_text,
-                         u"2019-08-24 02:32:23: Alice: Hello, Bob\n"
+        self.assertEqual(u"2019-08-24 02:32:23: Alice: Hello, Bob\n"
                          u"2019-08-26 14:22:29: Bob: Hello, Alice.\n"
                          u"2019-08-29 09:22:29: Alice: How are you?\n"
                          u"2019-08-30 09:22:29: Bob: I am well, thank you.\n"
-                         u"2019-09-01 09:22:29: Alice: I am glad to hear that.\n"
+                         u"2019-09-01 09:22:29: Alice: I am glad to hear that.\n",
+                         raw_text
                          )
 
     def test_get_messages_by_sender(self):
         raw_text = self.conversation.get_messages_by_sender()
 
-        self.assertEqual(raw_text,
-                         {"Alice": u"2019-08-24 02:32:23: Hello, Bob\n2019-08-29 09:22:29: How are you?\n"
+        self.assertEqual({"Alice": u"2019-08-24 02:32:23: Hello, Bob\n2019-08-29 09:22:29: How are you?\n"
                                    u"2019-09-01 09:22:29: I am glad to hear that.\n",
-                          "Bob": u"2019-08-26 14:22:29: Hello, Alice.\n2019-08-30 09:22:29: I am well, thank you.\n"}
+                          "Bob": u"2019-08-26 14:22:29: Hello, Alice.\n2019-08-30 09:22:29: I am well, thank you.\n"},
+                         raw_text,
                          )
 
     def test_get_message_count_by_type(self):
         message_types = self.conversation.get_type_count()
 
-        self.assertEqual(message_types,
-                         {"Content": 5,
+        self.assertEqual({"Content": 5,
                           "Photos": 1,
-                          "Share": 1}
-                          )
+                          "Share": 1},
+                         message_types
+                         )
 
     def test_get_message_count_by_day(self):
         message_counts = self.conversation.get_by_day()
 
-        self.assertEqual(message_counts,
-                         {"Monday": 1,
+        self.assertEqual({"Monday": 1,
                           "Tuesday": 1,
                           "Wednesday": 1,
                           "Thursday": 1,
                           "Friday": 1,
                           "Saturday": 1,
-                          "Sunday": 1})
+                          "Sunday": 1},
+                         message_counts
+                         )
 
     def test_get_message_count_by_hour(self):
         message_counts = self.conversation.get_by_hour()
 
-        self.assertEqual(message_counts,
-                         [(0, 0), (1, 0), (2, 1), (3, 0), (4, 0), (5, 0),
+        self.assertEqual([(0, 0), (1, 0), (2, 1), (3, 0), (4, 0), (5, 0),
                           (6, 0), (7, 0), (8, 0), (9, 5), (10, 0), (11, 0),
                           (12, 0), (13, 0), (14, 1), (15, 0), (16, 0), (17, 0),
-                          (18, 0), (19, 0), (20, 0), (21, 0), (22, 0), (23, 0)])
+                          (18, 0), (19, 0), (20, 0), (21, 0), (22, 0), (23, 0)],
+                         message_counts
+                         )
 
     def test_get_message_count_by_type_for_single_participant(self):
         pass
