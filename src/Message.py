@@ -3,13 +3,6 @@ import datetime
 
 class Message:
 
-    sender_name = ''
-    timestamp = ''
-    content = None
-    photos = None
-    share = None
-    type = ''
-
     def __init__(self, message_source):
         self.sender_name = message_source["sender_name"]
         self.timestamp = datetime.datetime.fromtimestamp(message_source["timestamp_ms"] / 1000)
