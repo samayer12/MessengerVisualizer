@@ -98,7 +98,7 @@ class ProcessingTest(unittest.TestCase):
                          )
 
     def test_get_average_message_length(self):
-        avg_message = self.conversation.get_average_message_length(self.conversation.get_text())
+        avg_message = self.conversation.get_average_message_length()
         self.assertEqual(4.5, avg_message)
 
     def test_prepare_all_messages(self):
