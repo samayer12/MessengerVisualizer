@@ -1,6 +1,7 @@
-import sys, getopt, os, nltk
-from src.FileIO import FileIO
-from src.Conversation import Conversation
+import sys
+import getopt
+import nltk
+from src import FileIO, Conversation
 
 
 def strip_common(words, wordlist):
@@ -39,7 +40,7 @@ def main(argv):
         elif opt in ("-o", "--ofile"):
             outputdir = arg
 
-    fileIO = FileIO()
+    fileIO = FileIO.FileIO()
     conversation = Conversation(fileIO.open_json(inputfile))
 
     count_word_frequency(conversation.get_text(), fileIO.open_text(wordlist))

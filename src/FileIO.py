@@ -4,20 +4,17 @@ import os
 
 class FileIO:
 
-
     def __init__(self):
         self.data = ""
-        print("File IO starting\n ")
-
-    def hello(self):
-        return "Hello"
 
     def open_json(self, file):
+        print("JSON file IO starting\n ")
         with open(file) as f:
             self.data = json.load(f)
         return self.data
 
     def open_text(self, file):
+        print("Text file IO starting\n ")
         try:
             if file.endswith('.txt'):
                 text = ""
