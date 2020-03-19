@@ -12,7 +12,7 @@ class Message:
 
     def __init__(self, message_source):
         self.sender_name = message_source["sender_name"]
-        self.timestamp = datetime.datetime.utcfromtimestamp(message_source["timestamp_ms"] / 1000)
+        self.timestamp = datetime.datetime.fromtimestamp(message_source["timestamp_ms"] / 1000)
         try:
             self.content = message_source["content"]
         except KeyError:

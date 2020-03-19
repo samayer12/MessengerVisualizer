@@ -3,6 +3,7 @@ from src.Message import Message
 from nltk import sent_tokenize, word_tokenize
 from string import punctuation
 
+
 class Conversation:
     participants = []
     messages = []
