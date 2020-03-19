@@ -44,7 +44,7 @@
       "content": "How are you?",
       "type": "Generic"
     },
-        {
+    {
       "sender_name": "Bob",
       "timestamp_ms": 1567156949000,
       "content": "I am well, thank you.",
