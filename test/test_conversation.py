@@ -25,7 +25,6 @@ class InitializationTest(unittest.TestCase):
     def tearDownClass(cls):
         del cls.skeleton_JSON
         del cls.conversation
-        print("Teardown for Init")
 
     def test_parse_participants(self):
         self.assertEqual(['Alice', 'Bob'], self.conversation.participants)
@@ -153,6 +152,7 @@ class ProcessingTest(unittest.TestCase):
 
     def test_get_message_count_by_type_for_single_participant(self):
         pass
+
 
 if __name__ == '__main__':
     unittest.main()

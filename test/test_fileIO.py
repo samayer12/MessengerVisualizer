@@ -27,3 +27,7 @@ class FileIOTest(unittest.TestCase):
         f = FileIO()
         goodfile = 'TextInput/uncommentedwordlist.txt'
         self.assertIsNotNone(f.open_text(goodfile))
+
+
+if __name__ == '__main__':
+    unittest.main()

@@ -1,5 +1,4 @@
 import unittest
-from datetime import datetime
 from src.FileIO import FileIO
 from src.Message import Message
 
@@ -29,6 +28,9 @@ class MessageTest(unittest.TestCase):
         self.assertEqual(message.type, "Generic")
 
     def test_get_datetime(self):
-        datetime = '2018-08-25 21:22:29'
+        datetime = '2018-08-25 16:22:29'
         self.assertEqual(datetime, message.get_datetime())
 
+
+if __name__ == '__main__':
+    unittest.main()
