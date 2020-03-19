@@ -1,7 +1,9 @@
 import sys
 import getopt
 import nltk
-from src import FileIO, Conversation
+import argparse
+from src.FileIO import FileIO
+from src.Conversation import Conversation
 
 
 def strip_common(words, wordlist):
@@ -19,35 +21,31 @@ def count_word_frequency(conversation, wordlist):
 
 
 def main(argv):
-    inputfile = ''
-    outputdir = ''
-    wordlist = ''
+
+    parser = argparse.ArgumentParser(description='Visualize FB messenger data from .json files')
+    parser.add_argument('-i', '--inputfile', metavar='InFile', dest='inputfile', required=True,
+                        nargs=1, help='.json file containing messenger data')
+    parser.add_argument('-o', '--outputdirectory', metavar='OutFile', dest='outputdir', required=False,
+                        nargs=1, help='Directory to put visualizations')
+    parser.add_argument('-w', '--wordlist', metavar='Wordlist', dest='wordlist', required=False,
+                        nargs=1, help='.txt file of words to ignore')
 
     try:
-        opts, args = getopt.getopt(argv, "f:w:oh", ["ffile=", "odir=", "wlist="])
+        args = parser.parse_args()
+        inputfile = args.inputfile[0]
+        outputdir = args.outputdir
+        wordlist = args.wordlist[0]
+        fileIO = FileIO()
+        conversation = Conversation(fileIO.open_json(inputfile))
+
+        count_word_frequency(conversation.get_text(), fileIO.open_text(wordlist))
+
+        print(conversation.get_messages())
+        print(conversation.get_messages_by_sender())
     except getopt.GetoptError:
-        print('Error, check file paths and run with these options:\n'
-              'Visualizer.py -f <inputfile> [-o <outputfile>] [-w <wordlist>]')
+        print('\nERROR: Check file paths\n')
+        parser.print_help()
         sys.exit(2)
-    for opt, arg in opts:
-        if opt == '-h':
-            print('Visualizer.py -f <inputfile> [-o <outputfile>] [-w <wordlist>]')
-            sys.exit()
-        elif opt in ("-f", "--ifile"):
-            inputfile = arg
-        elif opt in ("-w", "--wordlist"):
-            wordlist = arg
-        elif opt in ("-o", "--ofile"):
-            outputdir = arg
-
-    fileIO = FileIO.FileIO()
-    conversation = Conversation(fileIO.open_json(inputfile))
-
-    count_word_frequency(conversation.get_text(), fileIO.open_text(wordlist))
-
-    print(conversation.get_messages())
-    print(conversation.get_messages_by_sender())
-
 
 if __name__ == "__main__":
     main(sys.argv[1:])
