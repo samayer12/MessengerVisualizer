@@ -53,10 +53,10 @@ def main(argv):
         if args.wordlist:
             wordlist = args.wordlist[0]
             words = fileIO.open_text(wordlist)
-            count_word_frequency(conversation.get_text(), words)
+            plot_word_frequency(conversation.get_text(), words)
         else:
             pass
-            count_word_frequency(conversation.get_text())
+            plot_word_frequency(conversation.get_text())
 
         print(conversation.get_messages())
         print(conversation.get_messages_by_sender())
