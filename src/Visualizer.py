@@ -27,6 +27,11 @@ def plot_day_frequency(data):
     plt.show()
 
 
+def plot_hour_frequency(data):
+    plt.bar(*zip(*data.items()))
+    plt.show()
+
+
 def main(argv):
     parser = argparse.ArgumentParser(description='Visualize FB messenger data from .json files')
     parser.add_argument('-i', '--inputfile', metavar='InFile', dest='inputfile', required=True,
@@ -48,15 +53,16 @@ def main(argv):
         if args.wordlist:
             wordlist = args.wordlist[0]
             words = fileIO.open_text(wordlist)
-            #count_word_frequency(conversation.get_text(), words)
+            count_word_frequency(conversation.get_text(), words)
         else:
             pass
-            #count_word_frequency(conversation.get_text())
+            count_word_frequency(conversation.get_text())
 
-        #print(conversation.get_messages())
-        #print(conversation.get_messages_by_sender())
+        print(conversation.get_messages())
+        print(conversation.get_messages_by_sender())
         print(conversation.get_by_day())
         plot_day_frequency(conversation.get_by_day())
+        plot_hour_frequency(conversation.get_by_hour())
     except getopt.GetoptError:
         print('\nERROR: Check file paths\n')
         parser.print_help()
