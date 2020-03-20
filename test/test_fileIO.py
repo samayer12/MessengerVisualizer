@@ -1,10 +1,9 @@
-import unittest, json
+import unittest
+import json
 from src.FileIO import FileIO
 
 
 class FileIOTest(unittest.TestCase):
-    def test_FileIORuns(self):
-        self.assertEqual(FileIO.hello(self), "Hello")
 
     def test_OpenSpecifiedFileInSubDir(self):
         f = FileIO()

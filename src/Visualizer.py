@@ -21,7 +21,6 @@ def count_word_frequency(conversation, wordlist):
 
 
 def main(argv):
-
     parser = argparse.ArgumentParser(description='Visualize FB messenger data from .json files')
     parser.add_argument('-i', '--inputfile', metavar='InFile', dest='inputfile', required=True,
                         nargs=1, help='.json file containing messenger data')
@@ -46,6 +45,7 @@ def main(argv):
         print('\nERROR: Check file paths\n')
         parser.print_help()
         sys.exit(2)
+
 
 if __name__ == "__main__":
     main(sys.argv[1:])
