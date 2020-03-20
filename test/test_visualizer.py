@@ -1,5 +1,6 @@
-import unittest, json
+import unittest
 from src.Visualizer import *
+
 
 class VisualizationTest(unittest.TestCase):
     def test_strip_specified_words(self):
