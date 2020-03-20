@@ -76,18 +76,16 @@ class Conversation:
         pass
 
     def get_by_day(self):
-
         days = []
         for msg in self.messages:
             days.append((msg.timestamp.strftime("%A")))
         return Counter(days)
 
     def get_by_hour(self):
-
-        hours = dict.fromkeys(range(24), 0)
+        myCounter = dict.fromkeys(range(24), 0)
         for msg in self.messages:
-            hours[int((msg.timestamp.strftime("%H")))] += 1
-        return sorted(hours.items(), key=lambda kv: (kv[0], kv[1]))
+            myCounter[int((msg.timestamp.strftime("%H")))] += 1
+        return dict(sorted(myCounter.items()))
 
     def get_average_message_length(self):
         words = word_tokenize(self.get_text())
