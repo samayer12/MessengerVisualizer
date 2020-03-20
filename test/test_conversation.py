@@ -114,8 +114,9 @@ class ProcessingTest(unittest.TestCase):
     def test_get_messages_by_sender(self):
         raw_text = self.conversation.get_messages_by_sender()
 
-        self.assertEqual({'Alice': '2019-08-23 21:32:23: Hello, Bob\n2019-08-29 04:22:29: How are you?\n2019-09-01 04:22:29: I am glad to hear that.\n',
-                          'Bob': '2019-08-26 09:22:29: Hello, Alice.\n2019-08-30 04:22:29: I am well, thank you.\n'},
+        self.assertEqual({
+                             'Alice': '2019-08-23 21:32:23: Hello, Bob\n2019-08-29 04:22:29: How are you?\n2019-09-01 04:22:29: I am glad to hear that.\n',
+                             'Bob': '2019-08-26 09:22:29: Hello, Alice.\n2019-08-30 04:22:29: I am well, thank you.\n'},
                          raw_text,
                          )
 
@@ -132,23 +133,22 @@ class ProcessingTest(unittest.TestCase):
         message_counts = self.conversation.get_by_day()
 
         self.assertEqual(Counter({"Monday": 1,
-                          "Tuesday": 1,
-                          "Wednesday": 1,
-                          "Thursday": 1,
-                          "Friday": 2,
-                          "Sunday": 1}),
+                                  "Tuesday": 1,
+                                  "Wednesday": 1,
+                                  "Thursday": 1,
+                                  "Friday": 2,
+                                  "Sunday": 1}),
                          message_counts
                          )
 
     def test_get_message_count_by_hour(self):
+        testCounter = dict.fromkeys(range(24), 0)
+        testCounter[4] += 5
+        testCounter[9] += 1
+        testCounter[21] += 1
         message_counts = self.conversation.get_by_hour()
 
-        self.assertEqual([(0, 0), (1, 0), (2, 0), (3, 0), (4, 5), (5, 0),
-                          (6, 0), (7, 0), (8, 0), (9, 1), (10, 0), (11, 0),
-                          (12, 0), (13, 0), (14, 0), (15, 0), (16, 0), (17, 0),
-                          (18, 0), (19, 0), (20, 0), (21, 1), (22, 0), (23, 0)],
-                         message_counts
-                         )
+        self.assertEqual(dict(sorted(testCounter.items())), message_counts )
 
     def test_get_message_count_by_type_for_single_participant(self):
         pass
