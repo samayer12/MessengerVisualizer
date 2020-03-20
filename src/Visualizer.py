@@ -4,13 +4,14 @@ import nltk
 import argparse
 from src.FileIO import FileIO
 from src.Conversation import Conversation
+import matplotlib.pyplot as plt
 
 
 def strip_common(words, wordlist):
     return [word for word in words if word not in wordlist]
 
 
-def count_word_frequency(conversation, wordlist=None):
+def plot_word_frequency(conversation, wordlist=None):
     tokens = [t for t in conversation.split()]
     if wordlist is not None:
         tokens = strip_common(tokens, wordlist)
@@ -19,6 +20,11 @@ def count_word_frequency(conversation, wordlist=None):
         print(str(key) + ':' + str(val))
 
     freq.plot(50, cumulative=False)
+
+
+def plot_day_frequency(data):
+    plt.bar(*zip(*data.items()))
+    plt.show()
 
 
 def main(argv):
@@ -42,12 +48,15 @@ def main(argv):
         if args.wordlist:
             wordlist = args.wordlist[0]
             words = fileIO.open_text(wordlist)
-            count_word_frequency(conversation.get_text(), words)
+            #count_word_frequency(conversation.get_text(), words)
         else:
-            count_word_frequency(conversation.get_text())
+            pass
+            #count_word_frequency(conversation.get_text())
 
-        print(conversation.get_messages())
-        print(conversation.get_messages_by_sender())
+        #print(conversation.get_messages())
+        #print(conversation.get_messages_by_sender())
+        print(conversation.get_by_day())
+        plot_day_frequency(conversation.get_by_day())
     except getopt.GetoptError:
         print('\nERROR: Check file paths\n')
         parser.print_help()
