@@ -10,9 +10,10 @@ def strip_common(words, wordlist):
     return [word for word in words if word not in wordlist]
 
 
-def count_word_frequency(conversation, wordlist):
+def count_word_frequency(conversation, wordlist=None):
     tokens = [t for t in conversation.split()]
-    tokens = strip_common(tokens, wordlist)
+    if wordlist is not None:
+        tokens = strip_common(tokens, wordlist)
     freq = nltk.FreqDist(tokens)
     for key, val in freq.items():
         print(str(key) + ':' + str(val))
@@ -31,13 +32,19 @@ def main(argv):
 
     try:
         args = parser.parse_args()
-        inputfile = args.inputfile[0]
-        outputdir = args.outputdir
-        wordlist = args.wordlist[0]
         fileIO = FileIO()
+
+        inputfile = args.inputfile[0]
         conversation = Conversation(fileIO.open_json(inputfile))
 
-        count_word_frequency(conversation.get_text(), fileIO.open_text(wordlist))
+        if args.outputdir:
+            outputdir = args.outputdir
+        if args.wordlist:
+            wordlist = args.wordlist[0]
+            words = fileIO.open_text(wordlist)
+            count_word_frequency(conversation.get_text(), words)
+        else:
+            count_word_frequency(conversation.get_text())
 
         print(conversation.get_messages())
         print(conversation.get_messages_by_sender())
