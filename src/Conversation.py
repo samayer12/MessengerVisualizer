@@ -24,6 +24,13 @@ class Conversation:
 
         return dict(counter)
 
+    def get_text_totals(self):
+        text_messages = [msg for msg in self.messages if msg.content != ""]
+
+        counter = Counter(msg.sender_name for msg in text_messages)
+
+        return dict(counter)
+
     def get_photo_totals(self):
         photo_messages = [msg for msg in self.messages if msg.photos != ""]
 
@@ -92,3 +99,4 @@ class Conversation:
         words = [''.join(char for char in strings if char not in punctuation) for strings in words]
         words = [string for string in words if string]
         return len(words)/len(sent_tokenize(self.get_text()))
+

@@ -73,6 +73,12 @@ class ProcessingTest(unittest.TestCase):
         self.assertEqual(4, totals["Alice"])
         self.assertEqual(3, totals["Bob"])
 
+    def test_count_text_messages(self):
+        totals = self.conversation.get_text_totals()
+
+        self.assertEqual(3, totals["Alice"])
+        self.assertEqual(2, totals["Bob"])
+
     def test_count_photos(self):
         totals = self.conversation.get_photo_totals()
 
