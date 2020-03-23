@@ -32,6 +32,11 @@ def plot_hour_frequency(data):
     plt.show()
 
 
+def plot_message_type_balance(data, label):
+    plt.pie(data, labels=label)
+    plt.show()
+
+
 def main(argv):
     parser = argparse.ArgumentParser(description='Visualize FB messenger data from .json files')
     parser.add_argument('-i', '--inputfile', metavar='InFile', dest='inputfile', required=True,
@@ -63,6 +68,12 @@ def main(argv):
         print(conversation.get_by_day())
         plot_day_frequency(conversation.get_by_day())
         plot_hour_frequency(conversation.get_by_hour())
+
+        message_types_by_sender = conversation.get_message_type_count()
+        for sender in message_types_by_sender:
+            plot_message_type_balance(list(message_types_by_sender[sender].values()),
+                                      list(message_types_by_sender[sender].keys()))
+
     except getopt.GetoptError:
         print('\nERROR: Check file paths\n')
         parser.print_help()
