@@ -148,13 +148,13 @@ class ProcessingTest(unittest.TestCase):
                          )
 
     def test_get_message_count_by_hour(self):
-        testCounter = dict.fromkeys(range(24), 0)
-        testCounter[4] += 5
-        testCounter[9] += 1
-        testCounter[21] += 1
+        test_counter = dict.fromkeys(range(24), 0)
+        test_counter[4] += 5
+        test_counter[9] += 1
+        test_counter[21] += 1
         message_counts = self.conversation.get_by_hour()
 
-        self.assertEqual(dict(sorted(testCounter.items())), message_counts )
+        self.assertEqual(dict(sorted(test_counter.items())), message_counts )
 
     def test_get_message_count_by_type_for_single_participant(self):
         pass
