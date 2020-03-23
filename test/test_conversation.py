@@ -121,10 +121,10 @@ class ProcessingTest(unittest.TestCase):
         raw_text = self.conversation.get_messages_by_sender()
 
         self.assertEqual({
-                             'Alice': '2019-08-23 21:32:23: Hello, Bob\n2019-08-29 04:22:29: How are you?\n2019-09-01 04:22:29: I am glad to hear that.\n',
-                             'Bob': '2019-08-26 09:22:29: Hello, Alice.\n2019-08-30 04:22:29: I am well, thank you.\n'},
-                         raw_text,
-                         )
+            'Alice': '2019-08-23 21:32:23: Hello, Bob\n2019-08-29 04:22:29: How are you?\n2019-09-01 04:22:29: I am glad to hear that.\n',
+            'Bob': '2019-08-26 09:22:29: Hello, Alice.\n2019-08-30 04:22:29: I am well, thank you.\n'},
+            raw_text,
+        )
 
     def test_get__all_message_count_by_type(self):
         message_types = self.conversation.get_message_type_count()
