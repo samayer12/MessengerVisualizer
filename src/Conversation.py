@@ -1,4 +1,5 @@
 from collections import Counter
+from itertools import chain
 from src.Message import Message
 from nltk import sent_tokenize, word_tokenize
 from string import punctuation
@@ -67,20 +68,29 @@ class Conversation:
 
         return messages_by_sender
 
-    def get_type_count(self):
-        messages_by_type = {"Content": 0, "Photos": 0, "Share": 0}
+    def get_message_type_count(self):
+        message_type_dict = {}
+        for p in self.participants:
+            message_type_dict[p] = {"Content": 0, "Photos": 0, "Share": 0}
 
         for msg in self.messages:
             if msg.content != "":
-                messages_by_type["Content"] += 1
+                message_type_dict[msg.sender_name]["Content"] += 1
             if msg.photos != "":
-                messages_by_type["Photos"] += 1
+                message_type_dict[msg.sender_name]["Photos"] += 1
             if msg.share != "":
-                messages_by_type["Share"] += 1
+                message_type_dict[msg.sender_name]["Share"] += 1
 
-        return messages_by_type
+        def append_global_totals(input_dict):
+            global_message_types = {"Global": {"Content": 0, "Photos": 0, "Share": 0}}
+            for participant in input_dict:
+                for key, value in input_dict[participant].items():
+                    global_message_types["Global"][key] += value
+            return dict(chain(input_dict.items(), global_message_types.items()))
 
-        pass
+        message_type_dict = append_global_totals(message_type_dict)
+        return message_type_dict
+
 
     def get_by_day(self):
         days = []

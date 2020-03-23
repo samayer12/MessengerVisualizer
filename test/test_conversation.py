@@ -126,14 +126,24 @@ class ProcessingTest(unittest.TestCase):
                          raw_text,
                          )
 
-    def test_get_message_count_by_type(self):
-        message_types = self.conversation.get_type_count()
+    def test_get__all_message_count_by_type(self):
+        message_types = self.conversation.get_message_type_count()
 
         self.assertEqual({"Content": 5,
                           "Photos": 1,
                           "Share": 1},
-                         message_types
+                         message_types["Global"]
                          )
+
+    def test_get_message_count_by_type_for_single_participant(self):
+        message_types = self.conversation.get_message_type_count()
+
+        self.assertEqual({"Content": 3,
+                          "Photos": 1,
+                          "Share": 0},
+                         message_types["Alice"]
+                         )
+
 
     def test_get_message_count_by_day(self):
         message_counts = self.conversation.get_by_day()
@@ -154,10 +164,7 @@ class ProcessingTest(unittest.TestCase):
         test_counter[21] += 1
         message_counts = self.conversation.get_by_hour()
 
-        self.assertEqual(dict(sorted(test_counter.items())), message_counts )
-
-    def test_get_message_count_by_type_for_single_participant(self):
-        pass
+        self.assertEqual(dict(sorted(test_counter.items())), message_counts)
 
 
 if __name__ == '__main__':
