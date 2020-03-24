@@ -1,0 +1,12 @@
+    {
+      "sender_name": "Alice",
+      "timestamp_ms": 1584491069432,
+      "content": "These are words",
+      "reactions": [
+        {
+          "reaction": "\u00f0\u009f\u0098\u0086",
+          "actor": "Bob"
+        }
+      ],
+      "type": "Generic"
+    }

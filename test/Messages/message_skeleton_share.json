@@ -1,0 +1,9 @@
+    {
+      "sender_name": "Bob",
+      "timestamp_ms": 1584492396288,
+      "content": "Check out www.xkcd.com",
+      "share": {
+        "link": "www.xkcd.com"
+      },
+      "type": "Share"
+    }
