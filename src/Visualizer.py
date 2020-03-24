@@ -8,16 +8,12 @@ class Visualizer:
 
     @staticmethod
     def strip_common(words, wordlist):
-        return [word for word in words if word not in wordlist]
+        return [word.lower() for word in words if word.lower() not in wordlist]
 
     @staticmethod
-    def plot_day_frequency(data):
+    def plot_frequency(data):
         plt.bar(*zip(*data.items()))
-        plt.show()
-
-    @staticmethod
-    def plot_hour_frequency(data):
-        plt.bar(*zip(*data.items()))
+        plt.xticks(rotation=45)
         plt.show()
 
     @staticmethod
