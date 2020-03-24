@@ -1,4 +1,4 @@
-#100 Most common words in Project Gutenberg
+#100 Most common words in Project Gutenberg plus words from some real data
 a
 about
 after
@@ -31,13 +31,14 @@ he
 her
 him
 his
-I
+i
 if
 in
 into
 is
 it
 its
+just
 know
 like
 little
@@ -47,7 +48,7 @@ may
 me
 men
 more
-Mr
+mr
 much
 must
 my
@@ -99,3 +100,7 @@ with
 would
 you
 your
+i'm
+also
+want
+
