@@ -32,8 +32,8 @@ def main(argv):
             pass
             visualizer.plot_word_frequency(conversation.get_text())
 
-        visualizer.plot_day_frequency(conversation.get_by_day())
-        visualizer.plot_hour_frequency(conversation.get_by_hour())
+        visualizer.plot_frequency(conversation.get_by_day())
+        visualizer.plot_frequency(conversation.get_by_hour())
         message_types_by_sender = conversation.get_message_type_count()
         for sender in message_types_by_sender:
             visualizer.plot_message_type_balance(list(message_types_by_sender[sender].values()),
