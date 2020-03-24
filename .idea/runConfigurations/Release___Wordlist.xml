@@ -11,7 +11,7 @@
     <option name="IS_MODULE_SDK" value="false" />
     <option name="ADD_CONTENT_ROOTS" value="true" />
     <option name="ADD_SOURCE_ROOTS" value="true" />
-    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/Visualizer.py" />
+    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/Main.py" />
     <option name="PARAMETERS" value="-i ../messages/inbox/erinmayer_uihokap4wa/message_1.json -w ../util/100_Common_English.txt" />
     <option name="SHOW_COMMAND_LINE" value="false" />
     <option name="EMULATE_TERMINAL" value="false" />
