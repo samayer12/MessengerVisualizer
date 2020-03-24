@@ -91,7 +91,6 @@ class Conversation:
         message_type_dict = append_global_totals(message_type_dict)
         return message_type_dict
 
-
     def get_by_day(self):
         days = []
         for msg in self.messages:
