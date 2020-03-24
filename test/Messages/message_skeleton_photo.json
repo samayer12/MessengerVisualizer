@@ -1,0 +1,11 @@
+    {
+      "sender_name": "Alice",
+      "timestamp_ms": 1584497691959,
+      "photos": [
+        {
+          "uri": "/path/to/photo.jpg",
+          "creation_timestamp": 1584497691
+        }
+      ],
+      "type": "Generic"
+    }
