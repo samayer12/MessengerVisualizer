@@ -5,27 +5,29 @@ from src.FileIO import FileIO
 
 class FileIOTest(unittest.TestCase):
 
+    def setUp(self):
+        self.f = FileIO()
+
+    def tearDown(self):
+        del self.f
+
     def test_OpenSpecifiedFileInSubDir(self):
-        f = FileIO()
-        self.assertEqual(f.open_json('Messages/message.json'), json.load(open('Messages/message.json')))
-        self.assertGreater(f.data.__len__(), 0)
+        self.assertEqual(self.f.open_json('Messages/message.json'), json.load(open('Messages/message.json')))
+        self.assertGreater(self.f.data.__len__(), 0)
 
     def test_open_text_StripsCommentsFromTxtFiles(self):
-        f = FileIO()
-        uncommented = f.open_text('TextInput/uncommentedwordlist.txt')
-        commented = f.open_text('TextInput/commentedwordlist.txt')
+        uncommented = self.f.open_text('TextInput/uncommentedwordlist.txt')
+        commented = self.f.open_text('TextInput/commentedwordlist.txt')
 
         self.assertEqual(uncommented, commented)
 
     def test_open_text_RejectsNonTxtFile(self):
-        f = FileIO()
         badfile = "bad.doc"
-        self.assertRaises(TypeError, f.open_text(badfile))
+        self.assertRaises(TypeError, self.f.open_text(badfile))
 
     def test_open_text_AcceptsTxtFile(self):
-        f = FileIO()
         goodfile = 'TextInput/uncommentedwordlist.txt'
-        self.assertIsNotNone(f.open_text(goodfile))
+        self.assertIsNotNone(self.f.open_text(goodfile))
 
 
 if __name__ == '__main__':
