@@ -25,4 +25,4 @@ class FileIO:
                         text += line
                     return text
         except TypeError:
-            raise TypeError('Invalid file extension. Must be .txt');
+            raise TypeError('Invalid file extension. Must be .txt')
