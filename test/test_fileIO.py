@@ -1,5 +1,9 @@
-import unittest
 import json
+import io
+import unittest
+import unittest.mock as mock
+
+
 from src.FileIO import FileIO
 
 
@@ -23,12 +27,14 @@ class FileIOTest(unittest.TestCase):
 
     def test_open_text_RejectsNonTxtFile(self):
         badfile = "bad.doc"
-        self.assertRaises(TypeError, self.f.open_text(badfile))
+        result = self.f.open_text(badfile)
+        self.assertRaises(TypeError, result)
 
-    def test_open_text_AcceptsTxtFile(self):
-        goodfile = 'TextInput/uncommentedwordlist.txt'
-        self.assertIsNotNone(self.f.open_text(goodfile))
-
+    def test_open_text_AcceptsTxtFile_Mocked(self):
+        fake_file = io.StringIO('Mocked\nOutput')
+        with mock.patch('src.FileIO.open', return_value=fake_file, create=True):
+            result = self.f.open_text('/path/to/good.txt')
+            self.assertEqual('Mocked\nOutput', result)
 
 if __name__ == '__main__':
     unittest.main()
