@@ -6,6 +6,9 @@ from src.Conversation import Conversation
 from src.Visualizer import Visualizer
 
 
+def graphData():
+    Visualizer.plot_frequency()
+
 def main(argv):
     parser = argparse.ArgumentParser(description='Visualize FB messenger data from .json files')
     parser.add_argument('-i', '--inputfile', metavar='InFile', dest='inputfile', required=True,
