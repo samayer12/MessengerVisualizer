@@ -9,7 +9,7 @@ from src.Visualizer import Visualizer
 def graphData(conversationData):
     Visualizer.plot_frequency(conversationData)
     Visualizer.plot_frequency(conversationData)
-    #Visualizer.plot_word_frequency(conversationData)
+    Visualizer.plot_word_frequency(conversationData)
 
 def main(argv):
     parser = argparse.ArgumentParser(description='Visualize FB messenger data from .json files')

@@ -1,19 +1,16 @@
 import unittest
-from unittest.mock import Mock, patch
-from src.Visualizer import Visualizer
+from unittest.mock import patch
 import src.Main
 
 
-class MyTestCase(unittest.TestCase):
-    @patch.object(Visualizer, 'plot_frequency')
-    def test_plot_frequency_called_twice(self, mock):
-        src.Main.graphData("Conversation")
-        self.assertEqual(2, mock.call_count)
+class MainTestCases(unittest.TestCase):
+    @patch('src.Visualizer.Visualizer.plot_frequency')
+    @patch('src.Visualizer.Visualizer.plot_word_frequency')
+    def test_plot_methods_called_correct_number_of_times(self, mock_word_frequency, mock_frequency):
+        src.Main.graphData("data")
+        self.assertEqual(1, mock_word_frequency.call_count)
+        self.assertEqual(2, mock_frequency.call_count)
 
-    @patch.object(Visualizer, 'plot_word_frequency')
-    def test_plot_word_frequency_called_once(self, mock):
-        src.Main.graphData("Conversation")
-        self.assertEqual(1, mock.call_count)
 
 if __name__ == '__main__':
     unittest.main()
