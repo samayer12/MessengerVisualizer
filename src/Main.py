@@ -16,7 +16,6 @@ def graphData(conversationData, wordlist):
         Visualizer.plot_message_type_balance(list(message_types_by_sender[sender].values()),
                                              list(message_types_by_sender[sender].keys()))
 
-
 def main(argv):
     parser = argparse.ArgumentParser(description='Visualize FB messenger data from .json files')
     parser.add_argument('-i', '--inputfile', metavar='InFile', dest='inputfile', required=True,
