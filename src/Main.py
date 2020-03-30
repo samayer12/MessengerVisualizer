@@ -21,9 +21,9 @@ def main(argv):
     parser = argparse.ArgumentParser(description='Visualize FB messenger data from .json files')
     parser.add_argument('-i', '--inputfile', metavar='InFile', dest='inputfile', required=True,
                         nargs=1, help='.json file containing messenger data')
-    parser.add_argument('-o', '--outputdirectory', metavar='OutFile', dest='outputdir', required=False,
+    parser.add_argument('-o', '--outputdirectory', metavar='OutFile', dest='outputdir', default=None, required=False,
                         nargs=1, help='Directory to put visualizations')
-    parser.add_argument('-w', '--wordlist', metavar='Wordlist', dest='wordlist', required=False,
+    parser.add_argument('-w', '--wordlist', metavar='Wordlist', dest='wordlist', default=None, required=False,
                         nargs=1, help='.txt file of words to ignore')
 
     try:
@@ -32,16 +32,12 @@ def main(argv):
         visualizer = Visualizer()
         inputfile = args.inputfile[0]
         conversation = Conversation(fileIO.open_json(inputfile))
-
-        if args.outputdir:
-            outputdir = args.outputdir
-        if args.wordlist:
-            wordlist = args.wordlist[0]
-            words = fileIO.open_text(wordlist)
-            visualizer.plot_word_frequency(conversation.get_text(), words)
-        else:
-            pass
-            visualizer.plot_word_frequency(conversation.get_text())
+        outputdir = args.outputdir
+        try:
+            wordlist = fileIO.open_text(args.wordlist[0])
+        except TypeError:
+            wordlist = None
+            print("Wordlist not defined. Moving on.")
 
         graphData(conversation, wordlist)
 
