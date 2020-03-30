@@ -17,6 +17,12 @@ def graphData(conversationData, wordlist):
                                              list(message_types_by_sender[sender].keys()))
 
 
+def printMessages(conversationData):
+    print(conversationData.get_messages())
+    print(conversationData.get_messages_by_sender())
+    print(conversationData.get_by_day())
+
+
 def main(argv):
     parser = argparse.ArgumentParser(description='Visualize FB messenger data from .json files')
     parser.add_argument('-i', '--inputfile', metavar='InFile', dest='inputfile', required=True,
@@ -40,10 +46,8 @@ def main(argv):
             print("Wordlist not defined. Moving on.")
 
         graphData(conversation, wordlist)
+        printMessages(conversation)
 
-        print(conversation.get_messages())
-        print(conversation.get_messages_by_sender())
-        print(conversation.get_by_day())
 
     except getopt.GetoptError:
         print('\nERROR: Check file paths\n')
@@ -53,5 +57,3 @@ def main(argv):
 
 if __name__ == "__main__":
     main(sys.argv[1:])
-
-print("End")
