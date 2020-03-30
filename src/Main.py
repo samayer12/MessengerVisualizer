@@ -6,10 +6,16 @@ from src.Conversation import Conversation
 from src.Visualizer import Visualizer
 
 
-def graphData(conversationData):
-    Visualizer.plot_frequency(conversationData)
-    Visualizer.plot_frequency(conversationData)
-    Visualizer.plot_word_frequency(conversationData)
+def graphData(conversationData, wordlist):
+    Visualizer.plot_frequency(conversationData.get_by_hour())
+    Visualizer.plot_frequency(conversationData.get_by_day())
+    Visualizer.plot_word_frequency(conversationData.get_text(), wordlist)
+
+    message_types_by_sender = conversationData.get_message_type_count()
+    for sender in message_types_by_sender:
+        Visualizer.plot_message_type_balance(list(message_types_by_sender[sender].values()),
+                                             list(message_types_by_sender[sender].keys()))
+
 
 def main(argv):
     parser = argparse.ArgumentParser(description='Visualize FB messenger data from .json files')
@@ -37,11 +43,7 @@ def main(argv):
             pass
             visualizer.plot_word_frequency(conversation.get_text())
 
-
-        message_types_by_sender = conversation.get_message_type_count()
-        for sender in message_types_by_sender:
-            visualizer.plot_message_type_balance(list(message_types_by_sender[sender].values()),
-                                                 list(message_types_by_sender[sender].keys()))
+        graphData(conversation, wordlist)
 
         print(conversation.get_messages())
         print(conversation.get_messages_by_sender())
