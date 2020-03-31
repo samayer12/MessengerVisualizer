@@ -1,9 +1,11 @@
 <component name="ProjectDictionaryState">
   <dictionary name="sam">
     <words>
+      <w>commentedwordlist</w>
       <w>inputfile</w>
       <w>outputdir</w>
       <w>outputdirectory</w>
+      <w>uncommentedwordlist</w>
       <w>wordlist</w>
     </words>
   </dictionary>
