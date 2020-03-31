@@ -39,8 +39,7 @@ class FileIOTest(unittest.TestCase):
             result = self.f.open_text('/path/to/good.txt')
             self.assertEqual('Mocked\nOutput', result)
 
-# Test for with/without trailing '/' in FileIO
-    def test_write_file_directory_adds_slash(self):
+    def test_write_file_directory_adds_slash_to_path(self):
         fake_directory = '/path/to/dir'
         result = self.f.write_txt_file(fake_directory, 'file.txt', "Data")
         self.assertEqual('/path/to/dir/file.txt', result)
@@ -49,7 +48,6 @@ class FileIOTest(unittest.TestCase):
         fake_directory = '/path/to/dir/'
         result = self.f.write_txt_file(fake_directory, 'file.txt', "Data")
         self.assertEqual('/path/to/dir/file.txt', result)
-
 
 # Test for text input
 # Test for Dict input
