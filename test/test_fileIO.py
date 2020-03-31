@@ -52,7 +52,6 @@ class FileIOTest(unittest.TestCase):
         self.f.write_txt_file(fake_directory, 'file.txt', "Data")
         mock_open.assert_called_once_with('/path/to/dir/file.txt', 'w')
 
-# Test for text input
     @patch('builtins.open')
     def test_write_file_writes_text_data(self, mock_creation):
         fake_data = 'Data'
@@ -61,8 +60,6 @@ class FileIOTest(unittest.TestCase):
         mock_creation.assert_called_once_with('/path/to/dir/file.txt', 'w')
         mock_creation().write.assert_called_once_with('Data')
 
-
-# Test for Dict input
     @patch('builtins.open')
     def test_write_file_writes_dict_data(self, mock_creation):
         fake_data = {'Data'}
