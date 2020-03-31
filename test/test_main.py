@@ -29,6 +29,22 @@ class MainTestCases(unittest.TestCase):
         src.Main.print_messages(mock_conversation)
         self.assertEqual(3, mock_print.call_count)
 
+    @patch('src.FileIO.FileIO.write_txt_file', return_value="Outfile1")
+    @patch('src.Conversation')
+    def test_write_messages_tries_to_create_3_txt_files(self, mock_conversation, mock_file_writer):
+        from collections import Counter
+        outputdir = '/path/to/output/'
+        mock_conversation.get_messages.return_value = "Dummy text"
+        mock_conversation.get_messages_by_sender.return_value = {}
+        mock_conversation.get_by_day.return_value = Counter()
+
+        src.Main.write_messages(outputdir, mock_conversation)
+
+        mock_file_writer.assert_any_call(outputdir + 'all_messages.txt', "Dummy text")
+        mock_file_writer.assert_any_call(outputdir + 'messages_by_sender.txt', {})
+        mock_file_writer.assert_any_call(outputdir + 'messages_by_day.txt', Counter())
+        self.assertEqual(3, mock_file_writer.call_count)
+
 
 if __name__ == '__main__':
     unittest.main()

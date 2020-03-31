@@ -23,6 +23,12 @@ def print_messages(conversation_data):
     print(conversation_data.get_by_day())
 
 
+def write_messages(outputdir, conversation_data):
+    FileIO.write_txt_file(outputdir + 'all_messages.txt', conversation_data.get_messages())
+    FileIO.write_txt_file(outputdir + 'messages_by_sender.txt', conversation_data.get_messages_by_sender())
+    FileIO.write_txt_file(outputdir + 'messages_by_day.txt', conversation_data.get_by_day())
+
+
 def main(argv):
     parser = argparse.ArgumentParser(description='Visualize FB messenger data from .json files')
     parser.add_argument('-i', '--inputfile', metavar='InFile', dest='inputfile', required=True,
@@ -47,7 +53,6 @@ def main(argv):
 
         graph_data(conversation, wordlist)
         print_messages(conversation)
-
 
     except getopt.GetoptError:
         print('\nERROR: Check file paths\n')
