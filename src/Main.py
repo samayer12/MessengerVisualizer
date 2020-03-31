@@ -24,9 +24,9 @@ def print_messages(conversation_data):
 
 
 def write_messages(outputdir, conversation_data):
-    FileIO.write_txt_file(outputdir + 'all_messages.txt', conversation_data.get_messages())
-    FileIO.write_txt_file(outputdir + 'messages_by_sender.txt', conversation_data.get_messages_by_sender())
-    FileIO.write_txt_file(outputdir + 'messages_by_day.txt', conversation_data.get_by_day())
+    FileIO.write_txt_file(outputdir, 'all_messages.txt', conversation_data.get_messages())
+    FileIO.write_txt_file(outputdir, 'messages_by_sender.txt', conversation_data.get_messages_by_sender())
+    FileIO.write_txt_file(outputdir, 'messages_by_day.txt', conversation_data.get_by_day())
 
 
 def main(argv):

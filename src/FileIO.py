@@ -24,3 +24,8 @@ class FileIO:
                     return text
         except TypeError:
             raise TypeError('Invalid file extension. Must be .txt')
+
+    def write_txt_file(self, path, filename, data):
+        if path[-1] != '/':
+            path += '/'
+        return path + filename
