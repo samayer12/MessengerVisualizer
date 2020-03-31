@@ -6,6 +6,7 @@ class FileIO:
 
     def __init__(self):
         self.data = ""
+        self.text = ""
 
     def open_json(self, file):
         with open(file) as f:
@@ -15,13 +16,13 @@ class FileIO:
     def open_text(self, file):
         try:
             if file.endswith('.txt'):
-                text = ""
+                self.text = ""
                 with open(os.path.join(os.getcwd(), file), 'r') as f:
                     for line in f:
                         if line.startswith('#'):
                             continue
-                        text += line
-                    return text
+                        self.text += line
+                    return self.text
         except TypeError:
             raise TypeError('Invalid file extension. Must be .txt')
 
