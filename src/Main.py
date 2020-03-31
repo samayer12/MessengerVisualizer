@@ -6,21 +6,21 @@ from src.Conversation import Conversation
 from src.Visualizer import Visualizer
 
 
-def graphData(conversationData, wordlist):
-    Visualizer.plot_frequency(conversationData.get_by_hour())
-    Visualizer.plot_frequency(conversationData.get_by_day())
-    Visualizer.plot_word_frequency(conversationData.get_text(), wordlist)
+def graph_data(conversation_data, wordlist):
+    Visualizer.plot_frequency(conversation_data.get_by_hour())
+    Visualizer.plot_frequency(conversation_data.get_by_day())
+    Visualizer.plot_word_frequency(conversation_data.get_text(), wordlist)
 
-    message_types_by_sender = conversationData.get_message_type_count()
+    message_types_by_sender = conversation_data.get_message_type_count()
     for sender in message_types_by_sender:
         Visualizer.plot_message_type_balance(list(message_types_by_sender[sender].values()),
                                              list(message_types_by_sender[sender].keys()))
 
 
-def printMessages(conversationData):
-    print(conversationData.get_messages())
-    print(conversationData.get_messages_by_sender())
-    print(conversationData.get_by_day())
+def print_messages(conversation_data):
+    print(conversation_data.get_messages())
+    print(conversation_data.get_messages_by_sender())
+    print(conversation_data.get_by_day())
 
 
 def main(argv):
@@ -45,8 +45,8 @@ def main(argv):
             wordlist = None
             print("Wordlist not defined. Moving on.")
 
-        graphData(conversation, wordlist)
-        printMessages(conversation)
+        graph_data(conversation, wordlist)
+        print_messages(conversation)
 
 
     except getopt.GetoptError:
