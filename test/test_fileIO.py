@@ -1,7 +1,8 @@
 import json
 import io
 import unittest
-import unittest.mock as mock
+from unittest import mock
+from unittest.mock import patch
 
 
 from src.FileIO import FileIO
@@ -39,17 +40,28 @@ class FileIOTest(unittest.TestCase):
             result = self.f.open_text('/path/to/good.txt')
             self.assertEqual('Mocked\nOutput', result)
 
-    def test_write_file_directory_adds_slash_to_path(self):
+    @patch('builtins.open')
+    def test_write_file_directory_adds_slash_to_path(self, mock_open):
         fake_directory = '/path/to/dir'
-        result = self.f.write_txt_file(fake_directory, 'file.txt', "Data")
-        self.assertEqual('/path/to/dir/file.txt', result)
+        self.f.write_txt_file(fake_directory, 'file.txt', "Data")
+        mock_open.assert_called_once_with('/path/to/dir/file.txt', 'w')
 
-    def test_write_file_directory_accepts_existing_slash(self):
+    @patch('builtins.open' )
+    def test_write_file_directory_accepts_existing_slash(self, mock_open):
         fake_directory = '/path/to/dir/'
-        result = self.f.write_txt_file(fake_directory, 'file.txt', "Data")
-        self.assertEqual('/path/to/dir/file.txt', result)
+        self.f.write_txt_file(fake_directory, 'file.txt', "Data")
+        mock_open.assert_called_once_with('/path/to/dir/file.txt', 'w')
 
 # Test for text input
+    @patch('builtins.open')
+    def test_write_file_writes_text_data(self, mock_creation):
+        fake_data = 'Data'
+        self.f.write_txt_file('/path/to/dir', 'file.txt', fake_data)
+
+        mock_creation.assert_called_once_with('/path/to/dir/file.txt', 'w')
+        mock_creation().write.assert_called_once_with('Data')
+
+
 # Test for Dict input
 # Test for Counter() input
 

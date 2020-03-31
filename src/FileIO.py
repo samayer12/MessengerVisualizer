@@ -29,4 +29,7 @@ class FileIO:
     def write_txt_file(self, path, filename, data):
         if path[-1] != '/':
             path += '/'
-        return path + filename
+        full_path = path + filename
+        open(full_path, 'w').write(data)
+
+        return full_path
