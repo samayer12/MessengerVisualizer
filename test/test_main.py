@@ -40,9 +40,9 @@ class MainTestCases(unittest.TestCase):
 
         src.Main.write_messages(outputdir, mock_conversation)
 
-        mock_file_writer.assert_any_call(outputdir + 'all_messages.txt', "Dummy text")
-        mock_file_writer.assert_any_call(outputdir + 'messages_by_sender.txt', {})
-        mock_file_writer.assert_any_call(outputdir + 'messages_by_day.txt', Counter())
+        mock_file_writer.assert_any_call(outputdir, 'all_messages.txt', "Dummy text")
+        mock_file_writer.assert_any_call(outputdir, 'messages_by_sender.txt', {})
+        mock_file_writer.assert_any_call(outputdir, 'messages_by_day.txt', Counter())
         self.assertEqual(3, mock_file_writer.call_count)
 
 
