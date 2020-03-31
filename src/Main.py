@@ -41,10 +41,9 @@ def main(argv):
     try:
         args = parser.parse_args()
         fileIO = FileIO()
-        visualizer = Visualizer()
         inputfile = args.inputfile[0]
         conversation = Conversation(fileIO.open_json(inputfile))
-        outputdir = args.outputdir
+        outputdir = args.outputdir[0]
         try:
             wordlist = fileIO.open_text(args.wordlist[0])
         except TypeError:
@@ -52,7 +51,10 @@ def main(argv):
             print("Wordlist not defined. Moving on.")
 
         graph_data(conversation, wordlist)
-        print_messages(conversation)
+        if outputdir is not None:
+            write_messages(outputdir, conversation)
+        else:
+            print_messages(conversation)
 
     except getopt.GetoptError:
         print('\nERROR: Check file paths\n')
