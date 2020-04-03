@@ -7,15 +7,15 @@ from src.Visualizer import Visualizer
 
 
 def graph_data(conversation_data, wordlist):
-    Visualizer.plot_frequency(conversation_data.get_by_hour())
-    Visualizer.plot_frequency(conversation_data.get_by_day())
+    Visualizer.plot_frequency('Message Frequency by Hour', 'Hour of Day', 'Frequency', conversation_data.get_by_hour())
+    Visualizer.plot_frequency('Message Frequency by Day', 'Day of Week', 'Frequency', conversation_data.get_by_day())
     Visualizer.plot_word_frequency(conversation_data.get_text(), wordlist)
 
     message_types_by_sender = conversation_data.get_message_type_count()
     for sender in message_types_by_sender:
-        Visualizer.plot_message_type_balance(list(message_types_by_sender[sender].values()),
+        Visualizer.plot_message_type_balance(sender,
+                                             list(message_types_by_sender[sender].values()),
                                              list(message_types_by_sender[sender].keys()))
-
 
 def print_messages(conversation_data):
     print(conversation_data.get_messages())
