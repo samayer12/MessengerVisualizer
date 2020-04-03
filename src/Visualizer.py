@@ -1,5 +1,6 @@
 import nltk
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def strip_common(words, wordlist):
@@ -13,7 +14,7 @@ class Visualizer:
     @staticmethod
     def plot_frequency(title, x_label, y_label, data):
         plt.bar(*zip(*data.items()))
-        plt.xticks(rotation=45)
+        plt.xticks(np.arange(len(data.keys())), data.keys(), rotation=45)
         plt.title(title)
         plt.ylabel(x_label)
         plt.xlabel(y_label)
