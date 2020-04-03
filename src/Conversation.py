@@ -92,16 +92,16 @@ class Conversation:
         return message_type_dict
 
     def get_by_day(self):
-        days = []
+        days = dict.fromkeys(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], 0)
         for msg in self.messages:
-            days.append((msg.timestamp.strftime("%A")))
-        return Counter(days)
+            days[(msg.timestamp.strftime("%A"))] += 1
+        return days
 
     def get_by_hour(self):
-        myCounter = dict.fromkeys(range(24), 0)
+        hours = dict.fromkeys(range(24), 0)
         for msg in self.messages:
-            myCounter[int((msg.timestamp.strftime("%H")))] += 1
-        return dict(sorted(myCounter.items()))
+            hours[int((msg.timestamp.strftime("%H")))] += 1
+        return dict(sorted(hours.items()))
 
     def get_average_message_length(self):
         words = word_tokenize(self.get_text())
