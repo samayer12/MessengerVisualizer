@@ -68,14 +68,6 @@ class FileIOTest(unittest.TestCase):
         mock_creation.assert_called_once_with('/path/to/dir/file.txt', 'w')
         mock_creation().write.assert_called_once_with("{'Data'}")
 
-    @patch('builtins.open')
-    def test_write_file_writes_counter_data(self, mock_creation):
-        from collections import Counter
-        fake_data = Counter({'Data': 1})
-        self.f.write_txt_file('/path/to/dir', 'file.txt', fake_data)
-
-        mock_creation.assert_called_once_with('/path/to/dir/file.txt', 'w')
-        mock_creation().write.assert_called_once_with("Counter({'Data': 1})")
 
 if __name__ == '__main__':
     unittest.main()
