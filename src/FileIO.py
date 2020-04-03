@@ -26,12 +26,11 @@ class FileIO:
         except TypeError:
             raise TypeError('Invalid file extension. Must be .txt')
 
-    @staticmethod
-    def write_txt_file(path, filename, data):
+    def write_txt_file(self, path, filename, data):
         if path[-1] != '/':
             path += '/'
         full_path = path + filename
-        data = str(data)
-        open(full_path, 'w').write(data)
+        self.data = str(data)
+        open(full_path, 'w').write(self.data)
 
         return full_path
