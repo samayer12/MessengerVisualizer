@@ -31,6 +31,7 @@ class FileIO:
         if path[-1] != '/':
             path += '/'
         full_path = path + filename
+        data = str(data)
         open(full_path, 'w').write(data)
 
         return full_path
