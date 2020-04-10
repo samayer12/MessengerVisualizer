@@ -12,12 +12,13 @@ class Visualizer:
         pass
 
     @staticmethod
-    def plot_frequency(title, x_label, y_label, data):
+    def plot_frequency(filepath, title, x_label, y_label, data):
         plt.bar(*zip(*data.items()))
         plt.xticks(np.arange(len(data.keys())), data.keys(), rotation=45)
         plt.title(title)
         plt.ylabel(x_label)
         plt.xlabel(y_label)
+        plt.savefig(filepath)
         plt.show()
 
     @staticmethod
