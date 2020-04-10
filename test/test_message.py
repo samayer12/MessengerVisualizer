@@ -31,6 +31,13 @@ class MessageTest(unittest.TestCase):
     def test_parse_share(self):
         self.assertEqual(self.message.share, "")
 
+    def test_parse_like_reaction(self):
+        self.skeleton_JSON = FileIO()
+        self.skeleton_JSON.open_json('Messages/message_skeleton_reaction.json')
+        self.message = Message(self.skeleton_JSON.data)
+
+        self.assertEqual("like", self.reactions)
+
     def test_parse_type(self):
         self.assertEqual(self.message.type, "Generic")
 
