@@ -6,9 +6,9 @@ from src.Conversation import Conversation
 from src.Visualizer import Visualizer
 
 
-def graph_data(conversation_data, wordlist):
-    Visualizer.plot_frequency('Message Frequency by Hour', 'Frequency', 'Hour of Day', conversation_data.get_by_hour())
-    Visualizer.plot_frequency('Message Frequency by Day', 'Frequency', 'Day of Week', conversation_data.get_by_day())
+def graph_data(outputdir, conversation_data, wordlist):
+    Visualizer.plot_frequency(outputdir + '1.png', 'Message Frequency by Hour', 'Frequency', 'Hour of Day', conversation_data.get_by_hour())
+    Visualizer.plot_frequency(outputdir + '2.png', 'Message Frequency by Day', 'Frequency', 'Day of Week', conversation_data.get_by_day())
     Visualizer.plot_word_frequency(conversation_data.get_text(), wordlist)
 
     message_types_by_sender = conversation_data.get_message_type_count()
@@ -52,7 +52,7 @@ def main(argv):
             wordlist = None
             print("Wordlist not defined. Moving on.")
 
-        graph_data(conversation, wordlist)
+        graph_data(outputdir, conversation, wordlist)
         if outputdir is not None:
             write_messages(outputdir, conversation)
         else:
