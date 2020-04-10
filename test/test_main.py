@@ -9,7 +9,7 @@ class MainTestCases(unittest.TestCase):
     @patch('src.Visualizer.Visualizer.plot_frequency', return_value="Graph1")
     @patch('src.Visualizer.Visualizer.plot_word_frequency', return_value="Graph2")
     def test_plot_methods_called_correct_number_of_times(self, mock_word_frequency, mock_frequency, mock_conversation):
-        src.Main.graph_data(mock_conversation, wordlist=None)
+        src.Main.graph_data('fakepath', mock_conversation, wordlist=None)
         self.assertEqual(1, mock_word_frequency.call_count)
         self.assertEqual(2, mock_frequency.call_count)
 
@@ -21,7 +21,7 @@ class MainTestCases(unittest.TestCase):
                                                               mock_conversation):
         mock_conversation.plot_message_type_balance.return_value = "Graph3"
         mock_conversation.get_message_type_count.return_value = {"Alice": {}, "Bob": {}}
-        src.Main.graph_data(mock_conversation, wordlist=None)
+        src.Main.graph_data('fakepath', mock_conversation, wordlist=None)
         self.assertEqual(2, mock_message_balance.call_count)
 
     @patch('src.Conversation')
@@ -46,18 +46,6 @@ class MainTestCases(unittest.TestCase):
         mock_file_writer.assert_any_call(outputdir, 'messages_by_day.txt', Counter())
         self.assertEqual(3, mock_file_writer.call_count)
 
-    @patch('src.Conversation')
-    @patch('src.Visualizer')
-    @patch('matplotlib.pyplot', spec=['bar', 'xticks', 'title', 'ylabel', 'xlabel', 'show', 'pie', 'savefig'])
-    def test_graph_data_saves_6_graphs(self, mock_pyplot, mock_visualizer, mock_conversation):
-        outputdir = '/path/to/output/'
-        filenames = ['messages_by_hour.png', 'messages_by_day.png', 'word_frequency.png', 'balance_alice.png',
-                     'balance_bob.png', 'balance_global.png']
-
-        self.assertEqual(6, len(src.Main.graph_data(mock_conversation, None)))
-        print(type(mock_pyplot))
-        for name in filenames:
-            mock_pyplot.savefig.assert_called_with(outputdir + name)
 
 if __name__ == '__main__':
     unittest.main()
