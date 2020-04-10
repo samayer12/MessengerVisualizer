@@ -1,100 +1,36 @@
 {
-  "participants": [
+  "sender_name": "Alice",
+  "timestamp_ms": 1586545001526,
+  "content": "Thumbs Down. Thumbs Up. Angry. Sad. Wow. Haha. Love.",
+  "reactions": [
     {
-      "name": "Bob"
+      "reaction": "\u00f0\u009f\u0091\u008e",
+      "actor": "Alice"
     },
     {
-      "name": "Alice"
+      "reaction": "\u00f0\u009f\u0091\u008d",
+      "actor": "Alice"
+    },
+    {
+      "reaction": "\u00f0\u009f\u0098\u00a0",
+      "actor": "Alice"
+    },
+    {
+      "reaction": "\u00f0\u009f\u0098\u00a2",
+      "actor": "Alice"
+    },
+    {
+      "reaction": "\u00f0\u009f\u0098\u00ae",
+      "actor": "Alice"
+    },
+    {
+      "reaction": "\u00f0\u009f\u0098\u0086",
+      "actor": "Alice"
+    },
+    {
+      "reaction": "\u00e2\u009d\u00a4",
+      "actor": "Alice"
     }
   ],
-  "messages": [
-    {
-      "sender_name": "Alice",
-      "timestamp_ms": 1586545001526,
-      "content": "Thumbs Down",
-      "reactions": [
-        {
-          "reaction": "\u00f0\u009f\u0091\u008e",
-          "actor": "Alice"
-        }
-      ],
-      "type": "Generic"
-    },
-    {
-      "sender_name": "Alice",
-      "timestamp_ms": 1586545001030,
-      "content": "Thumbs Up",
-      "reactions": [
-        {
-          "reaction": "\u00f0\u009f\u0091\u008d",
-          "actor": "Alice"
-        }
-      ],
-      "type": "Generic"
-    },
-    {
-      "sender_name": "Alice",
-      "timestamp_ms": 1586545000600,
-      "content": "Angry",
-      "reactions": [
-        {
-          "reaction": "\u00f0\u009f\u0098\u00a0",
-          "actor": "Alice"
-        }
-      ],
-      "type": "Generic"
-    },
-    {
-      "sender_name": "Alice",
-      "timestamp_ms": 1586545000185,
-      "content": "Sad",
-      "reactions": [
-        {
-          "reaction": "\u00f0\u009f\u0098\u00a2",
-          "actor": "Alice"
-        }
-      ],
-      "type": "Generic"
-    },
-    {
-      "sender_name": "Alice",
-      "timestamp_ms": 1586544999734,
-      "content": "Wow",
-      "reactions": [
-        {
-          "reaction": "\u00f0\u009f\u0098\u00ae",
-          "actor": "Alice"
-        }
-      ],
-      "type": "Generic"
-    },
-    {
-      "sender_name": "Alice",
-      "timestamp_ms": 1586544998991,
-      "content": "Haha",
-      "reactions": [
-        {
-          "reaction": "\u00f0\u009f\u0098\u0086",
-          "actor": "Alice"
-        }
-      ],
-      "type": "Generic"
-    },
-    {
-      "sender_name": "Alice",
-      "timestamp_ms": 1586544998480,
-      "content": "Love",
-      "reactions": [
-        {
-          "reaction": "\u00e2\u009d\u00a4",
-          "actor": "Alice"
-        }
-      ],
-      "type": "Generic"
-    }
-  ],
-  "title": "Bob",
-  "is_still_participant": true,
-  "thread_type": "Regular",
-  "thread_path": "inbox/BobMessages"
+  "type": "Generic"
 }
