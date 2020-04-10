@@ -46,7 +46,7 @@ class FileIOTest(unittest.TestCase):
         self.f.write_txt_file(fake_directory, 'file.txt', "Data")
         mock_open.assert_called_once_with('/path/to/dir/file.txt', 'w')
 
-    @patch('builtins.open' )
+    @patch('builtins.open')
     def test_write_file_directory_accepts_existing_slash(self, mock_open):
         fake_directory = '/path/to/dir/'
         self.f.write_txt_file(fake_directory, 'file.txt', "Data")

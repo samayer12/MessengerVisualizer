@@ -1,6 +1,7 @@
 import unittest
-from unittest.mock import patch, DEFAULT
+from unittest.mock import patch, Mock
 import src.Main
+from matplotlib import pyplot
 
 
 class MainTestCases(unittest.TestCase):
@@ -45,6 +46,18 @@ class MainTestCases(unittest.TestCase):
         mock_file_writer.assert_any_call(outputdir, 'messages_by_day.txt', Counter())
         self.assertEqual(3, mock_file_writer.call_count)
 
+    @patch('src.Conversation')
+    @patch('src.Visualizer')
+    @patch('matplotlib.pyplot', spec=['bar', 'xticks', 'title', 'ylabel', 'xlabel', 'show', 'pie', 'savefig'])
+    def test_graph_data_saves_6_graphs(self, mock_pyplot, mock_visualizer, mock_conversation):
+        outputdir = '/path/to/output/'
+        filenames = ['messages_by_hour.png', 'messages_by_day.png', 'word_frequency.png', 'balance_alice.png',
+                     'balance_bob.png', 'balance_global.png']
+
+        self.assertEqual(6, len(src.Main.graph_data(mock_conversation, None)))
+        print(type(mock_pyplot))
+        for name in filenames:
+            mock_pyplot.savefig.assert_called_with(outputdir + name)
 
 if __name__ == '__main__':
     unittest.main()
