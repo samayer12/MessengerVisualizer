@@ -18,7 +18,7 @@ def graph_data(outputdir, conversation_data, wordlist):
                    'Hour of Day', conversation_data.get_by_hour())
     plot_frequency(outputdir + 'Frequency_daily', 'Message Frequency by Day', 'Frequency',
                    'Day of Week', conversation_data.get_by_day())
-    plot_word_frequency(conversation_data.get_text(), wordlist)
+    plot_word_frequency(outputdir + 'Frequency_words', conversation_data.get_text(), wordlist)
 
     message_types_by_sender = conversation_data.get_message_type_count()
     for sender in message_types_by_sender:
