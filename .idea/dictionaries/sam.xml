@@ -2,6 +2,7 @@
   <dictionary name="sam">
     <words>
       <w>commentedwordlist</w>
+      <w>filepath</w>
       <w>inputfile</w>
       <w>outputdir</w>
       <w>outputdirectory</w>
