@@ -24,12 +24,15 @@ def plot_message_type_balance(filepath, sender, data, label):
     plt.show()
 
 
-def plot_word_frequency(conversation, wordlist=None):
+def plot_word_frequency(filepath, conversation, wordlist=None):
     tokens = [t for t in conversation.split()]
     if wordlist is not None:
         tokens = strip_common(tokens, wordlist)
+    figure = plt.figure(figsize=(16, 6))
+
     freq = nltk.FreqDist(tokens)
     for key, val in freq.items():
         print(str(key) + ':' + str(val))
 
-    return freq.plot(50, cumulative=False, title='Word Frequency Across Data Set')
+    freq.plot(50, cumulative=False, title='Word Frequency Across Data Set')
+    figure.savefig(filepath, bbox_inches='tight')
