@@ -17,6 +17,7 @@ def del_none(data):
 class InitializationTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+        cls.maxDiff = None
         cls.skeleton_JSON = FileIO()
         cls.skeleton_JSON.open_json('Messages/conversation_skeleton.json')
         cls.conversation = Conversation(cls.skeleton_JSON.data)
