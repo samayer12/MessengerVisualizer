@@ -127,7 +127,7 @@ class ProcessingTest(unittest.TestCase):
             raw_text,
         )
 
-    def test_get__all_message_count_by_type(self):
+    def test_get_all_message_count_by_type(self):
         message_types = self.conversation.get_message_type_count()
 
         self.assertEqual({"Content": 5,
@@ -166,6 +166,26 @@ class ProcessingTest(unittest.TestCase):
         message_counts = self.conversation.get_by_hour()
 
         self.assertEqual(dict(sorted(test_counter.items())), message_counts)
+
+
+class ReactionTest(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.maxDiff = None
+        cls.skeleton_JSON = FileIO()
+        cls.skeleton_JSON.open_json('Messages/conversation_skeleton_reaction.json')
+        cls.conversation = Conversation(cls.skeleton_JSON.data)
+
+    @classmethod
+    def tearDownClass(cls):
+        del cls.skeleton_JSON
+
+    def test_get_reactions_by_sender(self):
+        expected = {'Dislike': 1, 'Like': 1, 'Angry': 1, 'Sad': 1,
+                    'Wow': 1, 'Funny': 1, 'Love': 1, 'Unsupported': 1}
+        reaction_counts = self.conversation.get_reaction_counts()
+
+        self.assertEqual(expected, reaction_counts['Alice'])
 
 
 if __name__ == '__main__':
