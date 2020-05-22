@@ -1,2 +1,4 @@
 #!/usr/bin/env bash
-rm -r ../output/*
+if [[ $(find ../output/ | wc -l) -gt 1 ]]; then
+  rm -r ../output/*
+fi
