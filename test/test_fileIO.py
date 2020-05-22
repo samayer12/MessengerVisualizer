@@ -11,6 +11,7 @@ from src.FileIO import FileIO
 class FileIOTest(unittest.TestCase):
 
     def setUp(self):
+        self.maxDiff = None
         self.f = FileIO()
 
     def tearDown(self):
