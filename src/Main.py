@@ -3,19 +3,28 @@ import getopt
 import argparse
 from src.FileIO import FileIO
 from src.Conversation import Conversation
-from src.Visualizer import Visualizer
+from src.Visualizer import plot_frequency, plot_word_frequency, plot_message_type_balance
+
+
+def validate_filepath(path):
+    path if path[-1] == '/' else (path + '/')
+    return path
 
 
 def graph_data(outputdir, conversation_data, wordlist):
-    Visualizer.plot_frequency(outputdir + '1.png', 'Message Frequency by Hour', 'Frequency', 'Hour of Day', conversation_data.get_by_hour())
-    Visualizer.plot_frequency(outputdir + '2.png', 'Message Frequency by Day', 'Frequency', 'Day of Week', conversation_data.get_by_day())
-    Visualizer.plot_word_frequency(conversation_data.get_text(), wordlist)
+    outputdir = validate_filepath(outputdir)
+
+    plot_frequency(outputdir + 'Frequency_hourly', 'Message Frequency by Hour', 'Frequency',
+                   'Hour of Day', conversation_data.get_by_hour())
+    plot_frequency(outputdir + 'Frequency_daily', 'Message Frequency by Day', 'Frequency',
+                   'Day of Week', conversation_data.get_by_day())
+    plot_word_frequency(conversation_data.get_text(), wordlist)
 
     message_types_by_sender = conversation_data.get_message_type_count()
     for sender in message_types_by_sender:
-        Visualizer.plot_message_type_balance(sender,
-                                             list(message_types_by_sender[sender].values()),
-                                             list(message_types_by_sender[sender].keys()))
+        plot_message_type_balance(outputdir + sender + '_balance', sender,
+                                  list(message_types_by_sender[sender].values()),
+                                  list(message_types_by_sender[sender].keys()))
 
 
 def print_messages(conversation_data):
@@ -26,9 +35,9 @@ def print_messages(conversation_data):
 
 def write_messages(outputdir, conversation_data):
     output = FileIO()
-    output.write_txt_file(outputdir, 'all_messages.txt', conversation_data.get_messages())
-    output.write_txt_file(outputdir, 'messages_by_sender.txt', conversation_data.get_messages_by_sender())
-    output.write_txt_file(outputdir, 'messages_by_day.txt', conversation_data.get_by_day())
+    output.write_txt_file(outputdir, 'All_messages.txt', conversation_data.get_messages())
+    output.write_txt_file(outputdir, 'Messages_by_sender.txt', conversation_data.get_messages_by_sender())
+    output.write_txt_file(outputdir, 'Messages_by_day.txt', conversation_data.get_by_day())
 
 
 def main(argv):
