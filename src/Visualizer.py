@@ -24,7 +24,6 @@ def plot_message_type_balance(filepath, sender, data, label):
     plt.show()
 
 
-
 def plot_word_frequency(conversation, wordlist=None):
     tokens = [t for t in conversation.split()]
     if wordlist is not None:
