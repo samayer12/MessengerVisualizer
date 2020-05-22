@@ -28,7 +28,11 @@
       "actor": "Alice"
     },
     {
-      "reaction": "\u00e2\u009d\u00a4",
+      "reaction": "\u00f0\u00e2\u009d\u00a4",
+      "actor": "Alice"
+    },
+    {
+      "reaction": "\u0078\u006b\u0063\u0064",
       "actor": "Alice"
     }
   ],
