@@ -1,0 +1,98 @@
+{
+  "participants": [
+    {
+      "name": "Alice"
+    },
+    {
+      "name": "Bob"
+    }
+  ],
+  "messages": [
+    {
+      "sender_name": "Alice",
+      "timestamp_ms": 1566613943000,
+      "content": "Hello, Bob",
+      "type": "Generic"
+    },
+    {
+      "sender_name": "Bob",
+      "timestamp_ms": 1566829349000,
+      "content": "Hello, Alice.",
+      "type": "Generic"
+    },
+    {
+      "sender_name": "Alice",
+      "timestamp_ms": 1566897749000,
+      "photos": [
+        {
+          "uri": "messages/path/to/needs_moar.jpg"
+        }
+      ],
+      "type": "Generic"
+    },
+    {
+      "sender_name": "Bob",
+      "timestamp_ms": 1566984149000,
+      "share": {
+        "link": "https://www.youtube.com/watch?v=oHg5SJYRHA0"
+      },
+      "type": "Share"
+    },
+    {
+      "sender_name": "Alice",
+      "timestamp_ms": 1567070549000,
+      "content": "How are you?",
+      "type": "Generic"
+    },
+    {
+      "sender_name": "Bob",
+      "timestamp_ms": 1567156949000,
+      "content": "I am well, thank you.",
+      "type": "Generic"
+    },
+    {
+      "sender_name": "Alice",
+      "timestamp_ms": 1586545001526,
+      "content": "Thumbs Down. Thumbs Up. Angry. Sad. Wow. Haha. Love.",
+      "reactions": [
+        {
+          "reaction": "\u00f0\u009f\u0091\u008e",
+          "actor": "Alice"
+        },
+        {
+          "reaction": "\u00f0\u009f\u0091\u008d",
+          "actor": "Alice"
+        },
+        {
+          "reaction": "\u00f0\u009f\u0098\u00a0",
+          "actor": "Alice"
+        },
+        {
+          "reaction": "\u00f0\u009f\u0098\u00a2",
+          "actor": "Alice"
+        },
+        {
+          "reaction": "\u00f0\u009f\u0098\u00ae",
+          "actor": "Alice"
+        },
+        {
+          "reaction": "\u00f0\u009f\u0098\u0086",
+          "actor": "Alice"
+        },
+        {
+          "reaction": "\u00f0\u00e2\u009d\u00a4",
+          "actor": "Alice"
+        },
+        {
+          "reaction": "\u0078\u006b\u0063\u0064",
+          "actor": "Alice"
+        }
+      ],
+      "type": "Generic"
+    }
+  ],
+  "title": "Conversation",
+  "is_still_participant": true,
+  "thread_type": "Regular",
+  "thread_path": "Conversation_1337"
+}
