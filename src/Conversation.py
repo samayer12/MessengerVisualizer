@@ -14,6 +14,13 @@ class Conversation:
         self.messages = []
         for msg in conversation_source["messages"]:
             self.messages.append(Message(msg))
+        self.reactions = {}
+        for msg in self.messages:
+            try:
+                self.reactions.update(msg.reactions)
+            except:
+                # No reaction in that message
+                pass
         self.title = conversation_source["title"]
         self.is_still_participant = conversation_source["is_still_participant"]
         self.thread_type = conversation_source["thread_type"]
@@ -108,4 +115,7 @@ class Conversation:
         words = [''.join(char for char in strings if char not in punctuation) for strings in words]
         words = [string for string in words if string]
         return len(words)/len(sent_tokenize(self.get_text()))
+
+    def get_reaction_counts(self):
+        return self.reactions
 
