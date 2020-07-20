@@ -181,11 +181,13 @@ class ReactionTest(unittest.TestCase):
         del cls.skeleton_JSON
 
     def test_get_reactions_by_sender(self):
-        expected = {'Dislike': 1, 'Like': 1, 'Angry': 1, 'Sad': 1,
+        expected_alice = {'Dislike': 1, 'Like': 1, 'Angry': 1, 'Sad': 1,
                     'Wow': 1, 'Funny': 1, 'Love': 1, 'Unsupported': 1}
+        expected_bob = {'Love': 1, 'Unsupported': 1}
         reaction_counts = self.conversation.get_reaction_counts()
 
-        self.assertEqual(expected, reaction_counts['Alice'])
+        self.assertEqual(expected_alice, reaction_counts['Alice'])
+        self.assertEqual(expected_bob, reaction_counts['Bob'])
 
 
 if __name__ == '__main__':
