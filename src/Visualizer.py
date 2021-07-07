@@ -1,13 +1,15 @@
+from typing import Any, Union
+
 import nltk
 import matplotlib.pyplot as plt
 import numpy as np
 
 
-def strip_common(words, wordlist):
+def strip_common(words: list[str], wordlist: list[str]) -> list[str]:
     return [word.lower() for word in words if word.lower() not in wordlist]
 
 
-def plot_frequency(filepath, title, x_label, y_label, data):
+def plot_frequency(filepath: str, title: str, x_label: str, y_label: str, data: Any) -> None:
     plt.bar(*zip(*data.items()))
     plt.xticks(np.arange(len(data.keys())), data.keys(), rotation=45)
     plt.title(title)
@@ -17,14 +19,14 @@ def plot_frequency(filepath, title, x_label, y_label, data):
     plt.show()
 
 
-def plot_message_type_balance(filepath, sender, data, label):
+def plot_message_type_balance(filepath: str, sender: str, data: Any, label: str) -> None:
     plt.pie(data, labels=label)
     plt.title('Message Balance for ' + sender)
     plt.savefig(filepath)
     plt.show()
 
 
-def plot_word_frequency(filepath, conversation, wordlist=None):
+def plot_word_frequency(filepath: str, conversation: str, wordlist: Union[list[str], None] = None) -> None:
     tokens = [t for t in conversation.split()]
     if wordlist is not None:
         tokens = strip_common(tokens, wordlist)

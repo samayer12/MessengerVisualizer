@@ -1,15 +1,16 @@
 import datetime
 from collections import defaultdict
+from typing import Dict, Any
 
 
-def parse_reactions(reactions):
+def parse_reactions(reactions: Dict[str, Dict[str, str]]) -> tuple[defaultdict[Any, defaultdict[Any, int]], list[str]]:
     message_reactions = defaultdict(lambda: defaultdict(int))
     unsupported_reactions = []
     if reactions is None:
         raise KeyError
     for react in reactions:
-        current_reaction = react['reaction']
-        current_actor = react['actor']
+        current_reaction = react["reaction"]
+        current_actor = react["actor"]
         if current_reaction == "\u00f0\u009f\u0091\u008e":
             message_reactions[current_actor]['Dislike'] += 1
         elif current_reaction == "\u00f0\u009f\u0091\u008d":
@@ -33,7 +34,7 @@ def parse_reactions(reactions):
 
 class Message:
 
-    def __init__(self, message_source):
+    def __init__(self, message_source: Dict[str, Any]) -> None:
         self.sender_name = message_source["sender_name"]
         self.timestamp = datetime.datetime.fromtimestamp(message_source["timestamp_ms"] / 1000)
         try:
@@ -58,5 +59,5 @@ class Message:
             # There's no reaction, so why bother?
             pass
 
-    def get_datetime(self):
+    def get_datetime(self) -> str:
         return self.timestamp.strftime('%Y-%m-%d %H:%M:%S')

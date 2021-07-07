@@ -1,5 +1,6 @@
 import json
 import os
+from typing import Dict
 
 
 class FileIO:
@@ -8,12 +9,12 @@ class FileIO:
         self.data = ""
         self.text = ""
 
-    def open_json(self, file):
+    def open_json(self, file: str) -> Dict[str, str]:
         with open(file) as f:
             self.data = json.load(f)
         return self.data
 
-    def open_text(self, file):
+    def open_text(self, file: str) -> str:
         try:
             if file.endswith('.txt'):
                 self.text = ""
@@ -26,7 +27,7 @@ class FileIO:
         except TypeError:
             raise TypeError('Invalid file extension. Must be .txt')
 
-    def write_txt_file(self, path, filename, data):
+    def write_txt_file(self, path: str, filename: str, data: str) -> str:
         if path[-1] != '/':
             path += '/'
         full_path = path + filename

@@ -6,12 +6,12 @@ from src.Conversation import Conversation
 from src.Visualizer import plot_frequency, plot_word_frequency, plot_message_type_balance
 
 
-def validate_filepath(path):
+def validate_filepath(path: str) -> str:
     path if path[-1] == '/' else (path + '/')
     return path
 
 
-def graph_data(outputdir, conversation_data, wordlist):
+def graph_data(outputdir: str, conversation_data: Conversation, wordlist: list[str]) -> None:
     outputdir = validate_filepath(outputdir)
 
     plot_frequency(outputdir + 'Frequency_hourly', 'Message Frequency by Hour', 'Frequency',
@@ -27,20 +27,20 @@ def graph_data(outputdir, conversation_data, wordlist):
                                   list(message_types_by_sender[sender].keys()))
 
 
-def print_messages(conversation_data):
+def print_messages(conversation_data: Conversation) -> None:
     print(conversation_data.get_messages())
     print(conversation_data.get_messages_by_sender())
     print(conversation_data.get_by_day())
 
 
-def write_messages(outputdir, conversation_data):
+def write_messages(outputdir: str, conversation_data: Conversation) -> None:
     output = FileIO()
     output.write_txt_file(outputdir, 'All_messages.txt', conversation_data.get_messages())
     output.write_txt_file(outputdir, 'Messages_by_sender.txt', conversation_data.get_messages_by_sender())
     output.write_txt_file(outputdir, 'Messages_by_day.txt', conversation_data.get_by_day())
 
 
-def main(argv):
+def main() -> None:
     parser = argparse.ArgumentParser(description='Visualize FB messenger data from .json files')
     parser.add_argument('-i', '--inputfile', metavar='InFile', dest='inputfile', required=True,
                         nargs=1, help='.json file containing messenger data')
@@ -74,4 +74,4 @@ def main(argv):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    main()
