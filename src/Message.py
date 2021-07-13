@@ -3,7 +3,52 @@ from collections import defaultdict
 from typing import Dict, Any
 
 
+class Message:
+
+    def __init__(self, message_source: Dict[str, Any]) -> None:
+        """
+        Represent a Facebook Messenger Message and key attributes about the message.
+
+        :param message_source: Dict containing message data
+        """
+        self.sender_name = message_source["sender_name"]
+        self.timestamp = datetime.datetime.fromtimestamp(message_source["timestamp_ms"] / 1000)
+        try:
+            self.content = message_source["content"]
+        except KeyError:
+            self.content = ""
+            pass
+        try:
+            self.photos = message_source["photos"]
+        except KeyError:
+            self.photos = ""
+            pass
+        try:
+            self.share = message_source["share"]
+        except KeyError:
+            self.share = ""
+            pass
+        self.type = message_source["type"]
+        try:
+            self.reactions, self.unsupported_reactions = parse_reactions(message_source['reactions'])
+        except KeyError:
+            # There's no reaction, so why bother?
+            pass
+
+    def get_datetime(self) -> str:
+        """
+        :return: A standard datetime string for the context of the project.
+        """
+        return self.timestamp.strftime('%Y-%m-%d %H:%M:%S')
+
+
 def parse_reactions(reactions: Dict[str, Dict[str, str]]) -> tuple[defaultdict[Any, defaultdict[Any, int]], list[str]]:
+    """
+    Process a message and return any reactions that were applied by one or more actors in the conversation.
+
+    :param reactions: Dictionary of reaction(s) to a message
+    :return: Tuple of reaction counts and a list of any unsupported reactions, if encountered
+    """
     message_reactions = defaultdict(lambda: defaultdict(int))
     unsupported_reactions = []
     if reactions is None:
@@ -30,34 +75,3 @@ def parse_reactions(reactions: Dict[str, Dict[str, str]]) -> tuple[defaultdict[A
             unsupported_reactions.append(current_reaction)
 
     return message_reactions, unsupported_reactions
-
-
-class Message:
-
-    def __init__(self, message_source: Dict[str, Any]) -> None:
-        self.sender_name = message_source["sender_name"]
-        self.timestamp = datetime.datetime.fromtimestamp(message_source["timestamp_ms"] / 1000)
-        try:
-            self.content = message_source["content"]
-        except KeyError:
-            self.content = ""
-            pass
-        try:
-            self.photos = message_source["photos"]
-        except KeyError:
-            self.photos = ""
-            pass
-        try:
-            self.share = message_source["share"]
-        except KeyError:
-            self.share = ""
-            pass
-        self.type = message_source["type"]
-        try:
-            self.reactions, self.unsupported_reactions = parse_reactions(message_source['reactions'])
-        except KeyError:
-            # There's no reaction, so why bother?
-            pass
-
-    def get_datetime(self) -> str:
-        return self.timestamp.strftime('%Y-%m-%d %H:%M:%S')
