@@ -1,6 +1,6 @@
-import unittest
 import json
-from collections import Counter
+import unittest
+
 from src.Conversation import Conversation
 from src.FileIO import FileIO
 
