@@ -14,23 +14,20 @@ def parse_reactions(reactions: Dict[str, Dict[str, str]]) -> tuple[defaultdict[A
     unsupported_reactions = []
     if reactions is None:
         raise KeyError
+
+    known_reactions = {"\u00f0\u009f\u0091\u008e": "Dislike",
+                       "\u00f0\u009f\u0091\u008d": "Like",
+                       "\u00f0\u009f\u0098\u00a0": "Angry",
+                       "\u00f0\u009f\u0098\u00a2": "Sad",
+                       "\u00f0\u009f\u0098\u00ae": "Wow",
+                       "\u00f0\u009f\u0098\u0086": "Funny",
+                       "\u00f0\u00e2\u009d\u00a4": "Love"}
+
     for react in reactions:
         current_reaction = react["reaction"]
         current_actor = react["actor"]
-        if current_reaction == "\u00f0\u009f\u0091\u008e":
-            message_reactions[current_actor]["Dislike"] += 1
-        elif current_reaction == "\u00f0\u009f\u0091\u008d":
-            message_reactions[current_actor]["Like"] += 1
-        elif current_reaction == "\u00f0\u009f\u0098\u00a0":
-            message_reactions[current_actor]["Angry"] += 1
-        elif current_reaction == "\u00f0\u009f\u0098\u00a2":
-            message_reactions[current_actor]["Sad"] += 1
-        elif current_reaction == "\u00f0\u009f\u0098\u00ae":
-            message_reactions[current_actor]["Wow"] += 1
-        elif current_reaction == "\u00f0\u009f\u0098\u0086":
-            message_reactions[current_actor]["Funny"] += 1
-        elif current_reaction == "\u00f0\u00e2\u009d\u00a4":
-            message_reactions[current_actor]["Love"] += 1
+        if current_reaction in known_reactions.keys():
+            message_reactions[current_actor][known_reactions[current_reaction]] += 1
         else:
             message_reactions[current_actor]["Unsupported"] += 1
             unsupported_reactions.append(current_reaction)
