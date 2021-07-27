@@ -7,7 +7,7 @@ class MessageTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.skeleton_JSON = FileIO()
-        cls.skeleton_JSON.open_json("Messages/message_skeleton_text.json")
+        cls.skeleton_JSON.open_json("test/Messages/message_skeleton_text.json")
         cls.message = Message(cls.skeleton_JSON.data)
 
     @classmethod
@@ -43,7 +43,7 @@ class ReactionTest(unittest.TestCase):
     def setUpClass(cls):
         cls.maxDiff = None
         cls.skeleton_JSON = FileIO()
-        cls.skeleton_JSON.open_json("Messages/message_skeleton_reaction.json")
+        cls.skeleton_JSON.open_json("test/Messages/message_skeleton_reaction.json")
         cls.message = Message(cls.skeleton_JSON.data)
 
     @classmethod

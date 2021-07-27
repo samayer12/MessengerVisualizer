@@ -17,15 +17,15 @@ class FileIOTest(unittest.TestCase):
         del self.f
 
     def test_OpenSpecifiedFileInSubDir(self):
-        with open("Messages/message.json") as file:
+        with open("test/Messages/message.json") as file:
             expected_json = json.load(file)
-            result = self.f.open_json("Messages/message.json")
+            result = self.f.open_json("test/Messages/message.json")
             self.assertEqual(expected_json, result)
             self.assertGreater(self.f.data.__len__(), 0)
 
     def test_open_text_StripsCommentsFromTxtFiles(self):
-        uncommented = self.f.open_text("TextInput/uncommentedwordlist.txt")
-        commented = self.f.open_text("TextInput/commentedwordlist.txt")
+        uncommented = self.f.open_text("test/TextInput/uncommentedwordlist.txt")
+        commented = self.f.open_text("test/TextInput/commentedwordlist.txt")
 
         self.assertEqual(uncommented, commented)
 

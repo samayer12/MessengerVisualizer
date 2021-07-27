@@ -19,7 +19,7 @@ class InitializationTest(unittest.TestCase):
     def setUpClass(cls):
         cls.maxDiff = None
         cls.skeleton_JSON = FileIO()
-        cls.skeleton_JSON.open_json("Messages/conversation_skeleton.json")
+        cls.skeleton_JSON.open_json("test/Messages/conversation_skeleton.json")
         cls.conversation = Conversation(cls.skeleton_JSON.data)
 
     @classmethod
@@ -59,7 +59,7 @@ class ProcessingTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.skeleton_JSON = FileIO()
-        cls.skeleton_JSON.open_json("Messages/conversation_skeleton.json")
+        cls.skeleton_JSON.open_json("test/Messages/conversation_skeleton.json")
         cls.conversation = Conversation(cls.skeleton_JSON.data)
 
     @classmethod
@@ -159,11 +159,12 @@ class ProcessingTest(unittest.TestCase):
 
 
 class ReactionTest(unittest.TestCase):
+
     @classmethod
     def setUpClass(cls):
         cls.maxDiff = None
         cls.skeleton_JSON = FileIO()
-        cls.skeleton_JSON.open_json("Messages/conversation_skeleton_reaction.json")
+        cls.skeleton_JSON.open_json("test/Messages/conversation_skeleton_reaction.json")
         cls.conversation = Conversation(cls.skeleton_JSON.data)
 
     @classmethod

@@ -19,7 +19,7 @@ class Conversation:
         for msg in self.messages:
             try:
                 self.reactions.update(msg.reactions)
-            except KeyError:
+            except AttributeError:
                 # No reaction in that message
                 pass
         self.title = conversation_source["title"]
