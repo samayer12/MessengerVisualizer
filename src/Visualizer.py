@@ -21,7 +21,7 @@ def plot_frequency(filepath: str, title: str, x_label: str, y_label: str, data: 
 
 def plot_message_type_balance(filepath: str, sender: str, data: Any, label: str) -> None:
     plt.pie(data, labels=label)
-    plt.title('Message Balance for ' + sender)
+    plt.title("Message Balance for " + sender)
     plt.savefig(filepath)
     plt.show()
 
@@ -34,7 +34,7 @@ def plot_word_frequency(filepath: str, conversation: str, wordlist: Union[list[s
 
     freq = nltk.FreqDist(tokens)
     for key, val in freq.items():
-        print(str(key) + ':' + str(val))
+        print(str(key) + ":" + str(val))
 
-    freq.plot(50, cumulative=False, title='Word Frequency Across Data Set')
-    figure.savefig(filepath, bbox_inches='tight')
+    freq.plot(50, cumulative=False, title="Word Frequency Across Data Set")
+    figure.savefig(filepath, bbox_inches="tight")

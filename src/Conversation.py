@@ -8,7 +8,6 @@ from string import punctuation
 
 
 class Conversation:
-
     def __init__(self, conversation_source: Dict[str, Any]) -> None:
         self.participants = []
         for p in conversation_source["participants"]:
@@ -20,7 +19,7 @@ class Conversation:
         for msg in self.messages:
             try:
                 self.reactions.update(msg.reactions)
-            except:
+            except KeyError:
                 # No reaction in that message
                 pass
         self.title = conversation_source["title"]
@@ -62,8 +61,13 @@ class Conversation:
 
     def get_messages(self) -> str:
         raw_messages = ""
-        raw_messages = raw_messages.join([(msg.get_datetime() + ": " + msg.sender_name + ": " + msg.content + "\n")
-                                          for msg in self.messages if msg.content != ""])
+        raw_messages = raw_messages.join(
+            [
+                (msg.get_datetime() + ": " + msg.sender_name + ": " + msg.content + "\n")
+                for msg in self.messages
+                if msg.content != ""
+            ]
+        )
         return raw_messages
 
     def get_messages_by_sender(self) -> Dict[str, str]:
@@ -71,8 +75,13 @@ class Conversation:
 
         for p in self.participants:
             raw_messages = ""
-            raw_messages = raw_messages.join([(msg.get_datetime() + ": " + msg.content + "\n")
-                                              for msg in self.messages if (msg.content != "" and msg.sender_name == p)])
+            raw_messages = raw_messages.join(
+                [
+                    (msg.get_datetime() + ": " + msg.content + "\n")
+                    for msg in self.messages
+                    if (msg.content != "" and msg.sender_name == p)
+                ]
+            )
             messages_by_sender[p] = raw_messages
 
         return messages_by_sender
@@ -114,10 +123,9 @@ class Conversation:
 
     def get_average_message_length(self) -> float:
         words = word_tokenize(self.get_text())
-        words = [''.join(char for char in strings if char not in punctuation) for strings in words]
+        words = ["".join(char for char in strings if char not in punctuation) for strings in words]
         words = [string for string in words if string]
-        return len(words)/len(sent_tokenize(self.get_text()))
+        return len(words) / len(sent_tokenize(self.get_text()))
 
     def get_reaction_counts(self) -> Dict:
         return self.reactions
-

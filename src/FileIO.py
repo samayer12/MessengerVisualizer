@@ -4,7 +4,6 @@ from typing import Dict
 
 
 class FileIO:
-
     def __init__(self):
         self.data = ""
         self.text = ""
@@ -16,22 +15,22 @@ class FileIO:
 
     def open_text(self, file: str) -> str:
         try:
-            if file.endswith('.txt'):
+            if file.endswith(".txt"):
                 self.text = ""
-                with open(os.path.join(os.getcwd(), file), 'r') as f:
+                with open(os.path.join(os.getcwd(), file), "r") as f:
                     for line in f:
-                        if line.startswith('#'):
+                        if line.startswith("#"):
                             continue
                         self.text += line
                     return self.text
         except TypeError:
-            raise TypeError('Invalid file extension. Must be .txt')
+            raise TypeError("Invalid file extension. Must be .txt")
 
     def write_txt_file(self, path: str, filename: str, data: str) -> str:
-        if path[-1] != '/':
-            path += '/'
+        if path[-1] != "/":
+            path += "/"
         full_path = path + filename
         self.data = str(data)
-        open(full_path, 'w').write(self.data)
+        open(full_path, "w").write(self.data)
 
         return full_path
