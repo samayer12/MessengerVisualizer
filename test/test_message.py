@@ -37,6 +37,11 @@ class MessageTest(unittest.TestCase):
         datetime = "2018-08-25 16:22:29"
         self.assertEqual(datetime, self.message.get_datetime())
 
+    def test_format_chatlog(self):
+        expected = u"2018-08-25 16:22:29: Alice: Hello, Bob\n"
+        self.assertEqual(expected, self.message.format_chatlog())
+
+
 
 class ReactionTest(unittest.TestCase):
     @classmethod

@@ -71,3 +71,9 @@ class Message:
         :return: A standard datetime string for the context of the project.
         """
         return self.timestamp.strftime("%Y-%m-%d %H:%M:%S")
+
+    def format_chatlog(self) -> str:
+        """
+        :return: A standard chatlog string for the context of the project.
+        """
+        return f"{self.get_datetime()}: {self.sender_name}: {self.content}\n"

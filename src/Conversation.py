@@ -63,7 +63,7 @@ class Conversation:
         raw_messages = ""
         raw_messages = raw_messages.join(
             [
-                (msg.get_datetime() + ": " + msg.sender_name + ": " + msg.content + "\n")
+                (msg.format_chatlog())
                 for msg in self.messages
                 if msg.content != ""
             ]
