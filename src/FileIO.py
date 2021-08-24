@@ -14,6 +14,11 @@ class FileIO:
         return self.data
 
     def open_text(self, file: str) -> str:
+        """
+        Read a textfile and ignore comments (#)
+        :param file: path to file
+        :return: file contents
+        """
         try:
             if file.endswith(".txt"):
                 self.text = ""

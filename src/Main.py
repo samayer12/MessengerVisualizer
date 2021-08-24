@@ -7,6 +7,11 @@ from src.Visualizer import plot_frequency, plot_word_frequency, plot_message_typ
 
 
 def validate_filepath(path: str) -> str:
+    """
+    Make sure filepaths have a trailing slash
+    :param path: Path to validate
+    :return: A path, ending in '/`
+    """
     path if path[-1] == "/" else (path + "/")
     return path
 

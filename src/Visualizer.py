@@ -6,6 +6,12 @@ import numpy as np
 
 
 def strip_common(words: list[str], wordlist: list[str]) -> list[str]:
+    """
+    Create the set difference from two lists of strings
+    :param words: The "source" that may have undesired entries
+    :param wordlist: List of words to remove from `words`
+    :return: words - wordlist
+    """
     return [word.lower() for word in words if word.lower() not in wordlist]
 
 
