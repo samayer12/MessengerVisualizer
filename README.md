@@ -3,6 +3,13 @@
 This project visualizes Facebook Messenger data.
 I also experiment with TDD, frameworks like `nltk`, and whatever else is interesting when I spend time on this project.
 
+## Quick Start
+
+Run the program with: `python src/Main.py -i test/Messages/conversation_skeleton.json -o out/ -w util/100_Common_English.txt`
+- `-i` - Input file, this is `.json` sourced from Facebook Messenger.
+- `-o` - Output directory for artifacts.
+- `-w` - A wordlist of terms to ignore, if desired.
+
 ## Project Structure
 
 `src` contains:
