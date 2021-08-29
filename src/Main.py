@@ -1,5 +1,6 @@
 import argparse
 import getopt
+import os
 import sys
 
 from src.Conversation import Conversation
@@ -68,7 +69,7 @@ def main() -> None:
         default=None,
         required=False,
         nargs=1,
-        help="Directory to put visualizations",
+        help="Pre-existing directory to put visualizations",
     )
     parser.add_argument(
         "-w",
@@ -86,19 +87,17 @@ def main() -> None:
         fileIO = FileIO()
         inputfile = args.inputfile[0]
         conversation = Conversation(fileIO.open_json(inputfile))
-        outputdir = args.outputdir[0]
+        outputdir = args.outputdir[0] if args.outputdir else None
         try:
             wordlist = fileIO.open_text(args.wordlist[0])
         except TypeError:
             wordlist = None
             print("Wordlist not defined. Moving on.")
-
-        graph_data(outputdir, conversation, wordlist)
-        if outputdir is not None:
-            write_messages(outputdir, conversation)
-        else:
+        if outputdir is None:
             print_messages(conversation)
-
+        elif os.path.isdir(outputdir):
+            graph_data(outputdir, conversation, wordlist)
+            write_messages(outputdir, conversation)
     except getopt.GetoptError:
         print("\nERROR: Check file paths\n")
         parser.print_help()
