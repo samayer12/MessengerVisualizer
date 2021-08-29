@@ -124,8 +124,9 @@ class ProcessingTest(unittest.TestCase):
 
         self.assertEqual(
             {
-                "Alice": "2019-08-23 21:32:23: Hello, Bob\n2019-08-29 04:22:29: How are you?\n2019-09-01 04:22:29: I am glad to hear that.\n",
-                "Bob": "2019-08-26 09:22:29: Hello, Alice.\n2019-08-30 04:22:29: I am well, thank you.\n",
+                "Alice": "2019-08-23 21:32:23: Alice: Hello, Bob\n2019-08-29 04:22:29: Alice: How are you?\n"
+                         "2019-09-01 04:22:29: Alice: I am glad to hear that.\n",
+                "Bob": "2019-08-26 09:22:29: Bob: Hello, Alice.\n2019-08-30 04:22:29: Bob: I am well, thank you.\n",
             },
             raw_text,
         )
