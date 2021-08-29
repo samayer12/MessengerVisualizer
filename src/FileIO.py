@@ -19,16 +19,17 @@ class FileIO:
         :param file: path to file
         :return: file contents
         """
-        try:
-            if file.endswith(".txt"):
-                self.text = ""
-                with open(os.path.join(os.getcwd(), file), "r") as f:
-                    for line in f:
-                        if line.startswith("#"):
-                            continue
-                        self.text += line
-                    return self.text
-        except TypeError:
+        if not os.path.isfile(file):
+            raise FileNotFoundError
+        if file.endswith(".txt"):
+            self.text = ""
+            with open(os.path.join(os.getcwd(), file), "r") as f:
+                for line in f:
+                    if line.startswith("#"):
+                        continue
+                    self.text += line
+                return self.text
+        else:
             raise TypeError("Invalid file extension. Must be .txt")
 
     def write_txt_file(self, path: str, filename: str, data: str) -> str:

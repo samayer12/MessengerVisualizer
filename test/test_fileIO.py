@@ -29,16 +29,21 @@ class FileIOTest(unittest.TestCase):
 
         self.assertEqual(uncommented, commented)
 
-    def test_open_text_RejectsNonTxtFile(self):
+    @patch('os.path.isfile', return_value= True)
+    def test_open_text_RejectsNonTxtFile(self, stub_isfile):
         badfile = "bad.doc"
-        result = self.f.open_text(badfile)
-        self.assertRaises(TypeError, result)
+        with self.assertRaises(TypeError) as exception_context:
+            self.f.open_text(badfile)
+            stub_isfile.assert_called()
+            self.assertTrue('Invalid file extension. Must be .txt' in exception_context.exception)
 
-    def test_open_text_AcceptsTxtFile_Mocked(self):
+    @patch('os.path.isfile', return_value= True)
+    def test_open_text_AcceptsTxtFile_Mocked(self, stub_isfile):
         fake_file = io.StringIO("Mocked\nOutput")
         with mock.patch("src.FileIO.open", return_value=fake_file, create=True):
             result = self.f.open_text("/path/to/good.txt")
             self.assertEqual("Mocked\nOutput", result)
+        stub_isfile.assert_called()
 
     @patch("builtins.open")
     def test_write_file_directory_adds_slash_to_path(self, mock_open):
