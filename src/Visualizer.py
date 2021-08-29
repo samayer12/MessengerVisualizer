@@ -16,6 +16,15 @@ def strip_common(words: list[str], wordlist: list[str]) -> list[str]:
 
 
 def plot_frequency(filepath: str, title: str, x_label: str, y_label: str, data: Any) -> None:
+    """
+    Wrapper function to matplotlib.bar to abstract away some formatting commands
+    :param filepath: Output to save file
+    :param title: Label to display at top of chart
+    :param x_label: Label for x-axis
+    :param y_label: Label for y-axis
+    :param data: Source data to graph, typically one of the "get" methods in Conversation.py
+    :return:
+    """
     plt.bar(*zip(*data.items()))
     plt.xticks(np.arange(len(data.keys())), data.keys(), rotation=45)
     plt.title(title)
@@ -26,6 +35,14 @@ def plot_frequency(filepath: str, title: str, x_label: str, y_label: str, data: 
 
 
 def plot_message_type_balance(filepath: str, sender: str, data: List[str], label: List[str]) -> None:
+    """
+    Wrapper function to matplotlib.pytplot.pie to abstract away some formatting commands
+    :param filepath: Output to save file
+    :param sender: Name of sender in conversation
+    :param data: Message data
+    :param label: Label to display at top of chart
+    :return: None
+    """
     plt.pie(data, labels=label)
     plt.title("Message Balance for " + sender)
     plt.savefig(filepath)
@@ -33,6 +50,13 @@ def plot_message_type_balance(filepath: str, sender: str, data: List[str], label
 
 
 def plot_word_frequency(filepath: str, conversation: str, wordlist: Union[list[str], None] = None) -> None:
+    """
+    Wrapper function to nltk.FreqDist to abstract away some formatting commands
+    :param filepath: Output to save file
+    :param conversation: Conversation data
+    :param wordlist: List of words to remove from Frequency Distribution
+    :return:
+    """
     tokens = conversation.split()
     if wordlist is not None:
         tokens = strip_common(tokens, wordlist)
