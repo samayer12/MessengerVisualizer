@@ -77,3 +77,9 @@ class Message:
         :return: A standard chatlog string for the context of the project.
         """
         return f"{self.get_datetime()}: {self.sender_name}: {self.content}\n"
+
+    def format_csv(self) -> str:
+        """
+        :return: A standard chatlog message ready for .csv processing as a table
+        """
+        return f"{self.get_datetime().replace(' ',',').replace(':', ',')},{self.sender_name},\"{self.content}\"\n"

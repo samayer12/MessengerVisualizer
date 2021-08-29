@@ -41,6 +41,7 @@ def print_messages(conversation_data: Conversation) -> None:
     print(conversation_data.get_messages())
     print(conversation_data.get_messages_by_sender())
     print(conversation_data.get_by_day())
+    print(conversation_data.get_csv())
 
 
 def write_messages(outputdir: str, conversation_data: Conversation) -> None:
@@ -48,6 +49,7 @@ def write_messages(outputdir: str, conversation_data: Conversation) -> None:
     output.write_txt_file(outputdir, "All_messages.txt", conversation_data.get_messages())
     output.write_txt_file(outputdir, "Messages_by_sender.txt", conversation_data.get_messages_by_sender())
     output.write_txt_file(outputdir, "Messages_by_day.txt", conversation_data.get_by_day())
+    output.write_txt_file(outputdir, "Messages_as_table.csv", conversation_data.get_csv())
 
 
 def main() -> None:

@@ -6,6 +6,7 @@ from src.Message import Message
 class MessageTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+        cls.maxDiff = None
         cls.skeleton_JSON = FileIO()
         cls.skeleton_JSON.open_json("test/Messages/message_skeleton_text.json")
         cls.message = Message(cls.skeleton_JSON.data)

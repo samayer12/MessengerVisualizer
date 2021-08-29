@@ -58,6 +58,7 @@ class InitializationTest(unittest.TestCase):
 class ProcessingTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+        cls.maxDiff = None
         cls.skeleton_JSON = FileIO()
         cls.skeleton_JSON.open_json("test/Messages/conversation_skeleton.json")
         cls.conversation = Conversation(cls.skeleton_JSON.data)
@@ -116,6 +117,19 @@ class ProcessingTest(unittest.TestCase):
             u"2019-08-29 04:22:29: Alice: How are you?\n"
             u"2019-08-30 04:22:29: Bob: I am well, thank you.\n"
             u"2019-09-01 04:22:29: Alice: I am glad to hear that.\n",
+            raw_text,
+        )
+
+    def test_get_csv(self):
+        raw_text = self.conversation.get_csv()
+
+        self.assertEqual(
+            u"date,hour,minute,second,sender,message\n"
+            u"2019-08-23,21,32,23,Alice,\"Hello, Bob\"\n"
+            u"2019-08-26,09,22,29,Bob,\"Hello, Alice.\"\n"
+            u"2019-08-29,04,22,29,Alice,\"How are you?\"\n"
+            u"2019-08-30,04,22,29,Bob,\"I am well, thank you.\"\n"
+            u"2019-09-01,04,22,29,Alice,\"I am glad to hear that.\"\n",
             raw_text,
         )
 

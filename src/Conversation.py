@@ -9,6 +9,7 @@ from string import punctuation
 
 class Conversation:
     """Track and report conversation data, which are comprised of lists of Message objects"""
+
     def __init__(self, conversation_source: Dict[str, Any]) -> None:
         self.participants = []
         for p in conversation_source["participants"]:
@@ -65,13 +66,22 @@ class Conversation:
         )
         return raw_messages
 
+    def get_csv(self) -> str:
+        """Generate a chat-log style string of all messages in a conversation for csv processing"""
+        headers = "date,hour,minute,second,sender,message\n"
+        raw_messages = "".join(
+            [msg.format_csv() for msg in self.messages if msg.content != ""]
+        )
+        return headers + raw_messages
+
     def get_messages_by_sender(self) -> Dict[str, str]:
         """Generate a chat-log style string of all messages, grouped by sender"""
         messages_by_sender = {}
 
         for participant in self.participants:
             raw_messages = "".join(
-                [msg.format_chatlog() for msg in self.messages if (msg.content != "" and msg.sender_name == participant)]
+                [msg.format_chatlog() for msg in self.messages if
+                 (msg.content != "" and msg.sender_name == participant)]
             )
             messages_by_sender[participant] = raw_messages
 
