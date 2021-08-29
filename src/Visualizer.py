@@ -33,7 +33,7 @@ def plot_message_type_balance(filepath: str, sender: str, data: Any, label: str)
 
 
 def plot_word_frequency(filepath: str, conversation: str, wordlist: Union[list[str], None] = None) -> None:
-    tokens = [t for t in conversation.split()]
+    tokens = conversation.split()
     if wordlist is not None:
         tokens = strip_common(tokens, wordlist)
     figure = plt.figure(figsize=(16, 6))
