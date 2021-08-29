@@ -4,7 +4,7 @@ import os
 import unittest
 from unittest import mock
 from unittest.mock import patch
-
+from pyfakefs.fake_filesystem_unittest import TestCase
 from src.FileIO import FileIO
 
 
@@ -45,34 +45,6 @@ class FileIOTest(unittest.TestCase):
             self.assertEqual("Mocked\nOutput", result)
         stub_isfile.assert_called()
 
-    @patch("builtins.open")
-    def test_write_file_directory_adds_slash_to_path(self, mock_open):
-        fake_directory = "/path/to/dir"
-        self.f.write_txt_file(fake_directory, "file.txt", "Data")
-        mock_open.assert_called_once_with("/path/to/dir/file.txt", "w")
-
-    @patch("builtins.open")
-    def test_write_file_directory_accepts_existing_slash(self, mock_open):
-        fake_directory = "/path/to/dir/"
-        self.f.write_txt_file(fake_directory, "file.txt", "Data")
-        mock_open.assert_called_once_with("/path/to/dir/file.txt", "w")
-
-    @patch("builtins.open")
-    def test_write_file_writes_text_data(self, mock_creation):
-        fake_data = "Data"
-        self.f.write_txt_file("/path/to/dir", "file.txt", fake_data)
-
-        mock_creation.assert_called_once_with("/path/to/dir/file.txt", "w")
-        mock_creation().write.assert_called_once_with("Data")
-
-    @patch("builtins.open")
-    def test_write_file_writes_dict_data(self, mock_creation):
-        fake_data = {"Data"}
-        self.f.write_txt_file("/path/to/dir", "file.txt", fake_data)
-
-        mock_creation.assert_called_once_with("/path/to/dir/file.txt", "w")
-        mock_creation().write.assert_called_once_with("{'Data'}")
-
     def test_validate_directory_accepts_directories(self):
         result = FileIO.validate_directory(os.getcwd())
         self.assertEqual(f'{os.getcwd()}/', result)
@@ -81,6 +53,50 @@ class FileIOTest(unittest.TestCase):
         with self.assertRaises(NotADirectoryError) as exception_context:
             FileIO.validate_directory('/test/path/file.txt')
             self.assertTrue('must be a directory' in exception_context.exception)
+
+
+class FakedFileIOTests(TestCase):
+    def setUp(self):
+        self.maxDiff = None
+        self.setUpPyfakefs()
+        self.f = FileIO()
+
+    def tearDown(self):
+        del self.f
+
+    @patch("builtins.open")
+    def test_write_file_directory_accepts_existing_slash(self, mock_open):
+        fake_directory = "/path/to/dir/"
+        self.fs.create_dir(fake_directory)
+        self.f.write_txt_file(fake_directory, "file.txt", "Data")
+        mock_open.assert_called_once_with("/path/to/dir/file.txt", "w")
+
+    @patch("builtins.open")
+    def test_write_file_directory_adds_slash_to_path(self, mock_open):
+        fake_directory = "/path/to/dir"
+        self.fs.create_dir(fake_directory)
+        self.f.write_txt_file(fake_directory, "file.txt", "Data")
+        mock_open.assert_called_once_with("/path/to/dir/file.txt", "w")
+
+    @patch("builtins.open")
+    def test_write_file_writes_dict_data(self, mock_creation):
+        fake_data = {"Data"}
+        fake_dir = "/path/to/dir"
+        self.fs.create_dir(fake_dir)
+        self.f.write_txt_file(fake_dir, "file.txt", fake_data)
+
+        mock_creation.assert_called_once_with("/path/to/dir/file.txt", "w")
+        mock_creation().write.assert_called_once_with("{'Data'}")
+
+    @patch("builtins.open")
+    def test_write_file_writes_text_data(self, mock_creation):
+        fake_data = "Data"
+        fake_dir = "/path/to/dir"
+        self.fs.create_dir(fake_dir)
+        self.f.write_txt_file("/path/to/dir", "file.txt", fake_data)
+
+        mock_creation.assert_called_once_with("/path/to/dir/file.txt", "w")
+        mock_creation().write.assert_called_once_with("Data")
 
 
 if __name__ == "__main__":

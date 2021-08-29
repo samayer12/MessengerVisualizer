@@ -1,4 +1,4 @@
 nltk~=3.6.2
 matplotlib~=3.4.2
 numpy~=1.21.0
-pre-commit~=2.13.0
+pyfakefs~=4.5.1

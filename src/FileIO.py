@@ -33,9 +33,7 @@ class FileIO:
             raise TypeError("Invalid file extension. Must be .txt")
 
     def write_txt_file(self, path: str, filename: str, data: str) -> str:
-        if path[-1] != "/":
-            path += "/"
-        full_path = path + filename
+        full_path = FileIO.validate_directory(path) + filename
         self.data = str(data)
         open(full_path, "w").write(self.data)
 
