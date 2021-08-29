@@ -59,13 +59,9 @@ class Conversation:
         return raw_messages
 
     def get_messages(self) -> str:
-        raw_messages = ""
-        raw_messages = raw_messages.join(
-            [
-                (msg.format_chatlog())
-                for msg in self.messages
-                if msg.content != ""
-            ]
+        """Generate a chat-log style string of all messages in a conversation"""
+        raw_messages = "".join(
+            [msg.format_chatlog() for msg in self.messages if msg.content != ""]
         )
         return raw_messages
 
@@ -73,16 +69,11 @@ class Conversation:
         """Generate a chat-log style string of all messages, grouped by sender"""
         messages_by_sender = {}
 
-        for p in self.participants:
-            raw_messages = ""
-            raw_messages = raw_messages.join(
-                [
-                    (msg.get_datetime() + ": " + msg.content + "\n")
-                    for msg in self.messages
-                    if (msg.content != "" and msg.sender_name == p)
-                ]
+        for participant in self.participants:
+            raw_messages = "".join(
+                [msg.format_chatlog() for msg in self.messages if (msg.content != "" and msg.sender_name == participant)]
             )
-            messages_by_sender[p] = raw_messages
+            messages_by_sender[participant] = raw_messages
 
         return messages_by_sender
 
