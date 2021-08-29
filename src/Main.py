@@ -7,7 +7,7 @@ from src.FileIO import FileIO
 from src.Visualizer import plot_frequency, plot_word_frequency, plot_message_type_balance
 
 
-def graph_data(outputdir: str, conversation_data: Conversation, wordlist: list[str]) -> None:
+def graph_data(outputdir: str, conversation_data: Conversation, wordlist: list[str] = None) -> None:
     outputdir = FileIO.validate_directory(outputdir)
 
     plot_frequency(

@@ -1,4 +1,4 @@
-from typing import Any, Union
+from typing import Any, Union, List
 
 import nltk
 import matplotlib.pyplot as plt
@@ -25,7 +25,7 @@ def plot_frequency(filepath: str, title: str, x_label: str, y_label: str, data: 
     plt.show()
 
 
-def plot_message_type_balance(filepath: str, sender: str, data: Any, label: str) -> None:
+def plot_message_type_balance(filepath: str, sender: str, data: List[str], label: List[str]) -> None:
     plt.pie(data, labels=label)
     plt.title("Message Balance for " + sender)
     plt.savefig(filepath)
