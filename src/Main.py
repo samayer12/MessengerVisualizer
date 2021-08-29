@@ -1,23 +1,14 @@
-import sys
-import getopt
 import argparse
-from src.FileIO import FileIO
+import getopt
+import sys
+
 from src.Conversation import Conversation
+from src.FileIO import FileIO
 from src.Visualizer import plot_frequency, plot_word_frequency, plot_message_type_balance
 
 
-def validate_filepath(path: str) -> str:
-    """
-    Make sure filepaths have a trailing slash
-    :param path: Path to validate
-    :return: A path, ending in '/`
-    """
-    path if path[-1] == "/" else (path + "/")
-    return path
-
-
 def graph_data(outputdir: str, conversation_data: Conversation, wordlist: list[str]) -> None:
-    outputdir = validate_filepath(outputdir)
+    outputdir = FileIO.validate_directory(outputdir)
 
     plot_frequency(
         outputdir + "Frequency_hourly",

@@ -40,3 +40,15 @@ class FileIO:
         open(full_path, "w").write(self.data)
 
         return full_path
+
+    @staticmethod
+    def validate_directory(path: str) -> str:
+        """
+        Make sure filepaths have a trailing slash
+        :param path: Path to validate
+        :return: A path, ending in '/`
+        """
+        if os.path.isdir(path):
+            return os.path.join(path, '')
+        else:
+            raise NotADirectoryError("Input must be a directory")

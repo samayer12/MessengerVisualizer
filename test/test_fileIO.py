@@ -1,9 +1,9 @@
 import json
 import io
+import os
 import unittest
 from unittest import mock
 from unittest.mock import patch
-
 
 from src.FileIO import FileIO
 
@@ -29,7 +29,7 @@ class FileIOTest(unittest.TestCase):
 
         self.assertEqual(uncommented, commented)
 
-    @patch('os.path.isfile', return_value= True)
+    @patch('os.path.isfile', return_value=True)
     def test_open_text_RejectsNonTxtFile(self, stub_isfile):
         badfile = "bad.doc"
         with self.assertRaises(TypeError) as exception_context:
@@ -37,7 +37,7 @@ class FileIOTest(unittest.TestCase):
             stub_isfile.assert_called()
             self.assertTrue('Invalid file extension. Must be .txt' in exception_context.exception)
 
-    @patch('os.path.isfile', return_value= True)
+    @patch('os.path.isfile', return_value=True)
     def test_open_text_AcceptsTxtFile_Mocked(self, stub_isfile):
         fake_file = io.StringIO("Mocked\nOutput")
         with mock.patch("src.FileIO.open", return_value=fake_file, create=True):
@@ -72,6 +72,15 @@ class FileIOTest(unittest.TestCase):
 
         mock_creation.assert_called_once_with("/path/to/dir/file.txt", "w")
         mock_creation().write.assert_called_once_with("{'Data'}")
+
+    def test_validate_directory_accepts_directories(self):
+        result = FileIO.validate_directory(os.getcwd())
+        self.assertEqual(f'{os.getcwd()}/', result)
+
+    def test_validate_directory_rejects_file(self):
+        with self.assertRaises(NotADirectoryError) as exception_context:
+            FileIO.validate_directory('/test/path/file.txt')
+            self.assertTrue('must be a directory' in exception_context.exception)
 
 
 if __name__ == "__main__":
