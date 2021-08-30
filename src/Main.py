@@ -3,6 +3,7 @@ import getopt
 import logging
 import os
 
+from report_generator_project_files import report_util
 from src.Conversation import Conversation
 from src.FileIO import FileIO
 from src.Visualizer import plot_frequency, plot_word_frequency, plot_message_type_balance
@@ -129,5 +130,33 @@ def main() -> None:
         raise getopt.GetoptError('Received invalid directory specification.')
 
 
+def generate_report():
+    report = report_util.Report('Facebook Messenger Data Visualization')
+    section1 = report.add_section('A section')
+    para1 = section1.add_paragraph()
+    para1.append('Test')
+
+    section2 = report.add_section('B section')
+    para2 = section2.add_paragraph()
+    para2.append('Testing')
+
+    section3 = report.add_section('C section')
+    para3 = section3.add_paragraph()
+    para3.append('Tested')
+    table3 = section3.add_table()
+    table3.caption = 'Data listing'
+    table3.set_header(['first', 'second', 'third'])
+    table3.set_data([[1,2,3],[4,5,6]])
+    para3.append_cross_reference(table3)
+    para3.append('More words here.')
+
+
+    return report
+
+
 if __name__ == "__main__":
     main()
+    report = generate_report()
+
+    html_generator = report_util.HTMLReportContext("")
+    html_generator.generate(report, "example")
