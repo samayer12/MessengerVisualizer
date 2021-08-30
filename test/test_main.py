@@ -28,7 +28,7 @@ class MainTestCases(unittest.TestCase):
     @patch("builtins.print")
     def test_message_print_called_correct_number_of_times(self, mock_print, mock_conversation):
         src.Main.print_messages(mock_conversation)
-        self.assertEqual(3, mock_print.call_count)
+        self.assertEqual(4, mock_print.call_count)
 
     @patch("src.FileIO.FileIO.write_txt_file", return_value="Outfile1")
     @patch("src.Conversation")
@@ -42,7 +42,7 @@ class MainTestCases(unittest.TestCase):
 
         src.Main.write_messages(outputdir, mock_conversation)
 
-        self.assertEqual(3, mock_file_writer.call_count)
+        self.assertEqual(4, mock_file_writer.call_count)
 
 
 if __name__ == "__main__":

@@ -42,6 +42,9 @@ class MessageTest(unittest.TestCase):
         expected = u"2018-08-25 16:22:29: Alice: Hello, Bob\n"
         self.assertEqual(expected, self.message.format_chatlog())
 
+    def test_format_csv(self):
+        expected = ['2018-08-25', '16', '22', '29', 'Alice', "\"Hello, Bob\""]
+        self.assertEqual(expected, self.message.format_csv())
 
 
 class ReactionTest(unittest.TestCase):

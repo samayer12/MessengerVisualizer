@@ -1,7 +1,7 @@
 import logging
 from collections import Counter
 from itertools import chain
-from typing import Dict, Any
+from typing import Dict, Any, Tuple
 
 from src.Message import Message
 from nltk import sent_tokenize, word_tokenize
@@ -72,13 +72,11 @@ class Conversation:
         )
         return raw_messages
 
-    def get_csv(self) -> str:
+    def get_csv(self) -> Tuple[str, str]:
         """Generate a chat-log style string of all messages in a conversation for csv processing"""
-        headers = "date,hour,minute,second,sender,message\n"
-        raw_messages = "".join(
-            [msg.format_csv() for msg in self.messages if msg.content != ""]
-        )
-        return headers + raw_messages
+        headers = ["date", "hour", "minute", "second", "sender", "message"]
+        csv_messages = [msg.format_csv() for msg in self.messages if msg.content != ""]
+        return headers, csv_messages
 
     def get_messages_by_sender(self) -> Dict[str, str]:
         """Generate a chat-log style string of all messages, grouped by sender"""
