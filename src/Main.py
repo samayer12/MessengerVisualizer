@@ -1,7 +1,7 @@
 import argparse
 import getopt
+import logging
 import os
-import sys
 
 from src.Conversation import Conversation
 from src.FileIO import FileIO
@@ -53,6 +53,7 @@ def write_messages(outputdir: str, conversation_data: Conversation) -> None:
 
 
 def main() -> None:
+    # Parse Arguments
     parser = argparse.ArgumentParser(description="Visualize FB messenger data from .json files")
     parser.add_argument(
         "-i",
@@ -84,26 +85,48 @@ def main() -> None:
         help=".txt file of words to ignore",
     )
 
+    # Analyze Data
+    args = parser.parse_args()
+
+    # Set up Logging
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    logger = logging.getLogger('MessengerViz')
+    logger.setLevel(logging.DEBUG)
+
+    outputdir = args.outputdir[0] if args.outputdir else None
+    if outputdir:
+        file_handler = logging.FileHandler(f'{outputdir}/MessengerViz.log')
+    else:
+        file_handler = logging.FileHandler(f'MessengerViz.log')
+    file_handler.setLevel(logging.DEBUG)
+    file_handler.setFormatter(formatter)
+
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.ERROR)
+    console_handler.setFormatter(formatter)
+
+    logger.addHandler(file_handler)
+    logger.addHandler(console_handler)
+
+    logger.debug('Program called with %s', args)
+
+    fileIO = FileIO()
+    inputfile = args.inputfile[0]
+    conversation = Conversation(fileIO.open_json(inputfile))
     try:
-        args = parser.parse_args()
-        fileIO = FileIO()
-        inputfile = args.inputfile[0]
-        conversation = Conversation(fileIO.open_json(inputfile))
-        outputdir = args.outputdir[0] if args.outputdir else None
-        try:
-            wordlist = fileIO.open_text(args.wordlist[0])
-        except TypeError:
-            wordlist = None
-            print("Wordlist not defined. Moving on.")
-        if outputdir is None:
-            print_messages(conversation)
-        elif os.path.isdir(outputdir):
-            graph_data(outputdir, conversation, wordlist)
-            write_messages(outputdir, conversation)
-    except getopt.GetoptError:
-        print("\nERROR: Check file paths\n")
+        wordlist = fileIO.open_text(args.wordlist[0])
+    except TypeError:
+        wordlist = None
+        logger.info("Wordlist not defined. Moving on.")
+    if outputdir is None:
+        print_messages(conversation)
+    elif os.path.isdir(outputdir):
+        graph_data(outputdir, conversation, wordlist)
+        write_messages(outputdir, conversation)
+    else:
+        logger.error('Received invalid directory specification: %s', outputdir)
         parser.print_help()
-        sys.exit(2)
+        raise getopt.GetoptError('Received invalid directory specification.')
 
 
 if __name__ == "__main__":

@@ -1,6 +1,9 @@
 import datetime
+import logging
 from collections import defaultdict
 from typing import Dict, Any
+
+message_logger = logging.getLogger('MessengerViz.message')
 
 
 def parse_reactions(reactions: Dict[str, Dict[str, str]]) -> tuple[defaultdict[Any, defaultdict[Any, int]], list[str]]:
@@ -42,6 +45,7 @@ class Message:
 
         :param message_source: Dict containing message data
         """
+        self.logger = logging.getLogger('MessengerViz.message.Message')
         self.sender_name = message_source["sender_name"]
         self.timestamp = datetime.datetime.fromtimestamp(message_source["timestamp_ms"] / 1000)
         try:
@@ -62,6 +66,8 @@ class Message:
         self.type = message_source["type"]
         try:
             self.reactions, self.unsupported_reactions = parse_reactions(message_source["reactions"])
+            if self.unsupported_reactions:
+                self.logger.info('Received unsupported reactions: %s', self.unsupported_reactions)
         except KeyError:
             # No reaction, so why bother?
             pass

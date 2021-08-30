@@ -1,3 +1,4 @@
+import logging
 from collections import Counter
 from itertools import chain
 from typing import Dict, Any
@@ -6,17 +7,22 @@ from src.Message import Message
 from nltk import sent_tokenize, word_tokenize
 from string import punctuation
 
+convo_logger = logging.getLogger('MessengerViz.conversation')
+
 
 class Conversation:
     """Track and report conversation data, which are comprised of lists of Message objects"""
 
     def __init__(self, conversation_source: Dict[str, Any]) -> None:
+        self.logger = logging.getLogger('MessengerViz.coversation.Conversation')
         self.participants = []
         for p in conversation_source["participants"]:
             self.participants.append(p.get("name", "ParseError"))
+        self.logger.debug('Detected %d participants.', len(self.participants))
         self.messages = []
         for msg in conversation_source["messages"]:
             self.messages.append(Message(msg))
+        self.logger.debug('Detected %d messages.', len(self.messages))
         self.reactions = {}
         for msg in self.messages:
             try:

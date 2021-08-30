@@ -1,9 +1,11 @@
+import logging
 from typing import Any, Union, List
 
 import nltk
 import matplotlib.pyplot as plt
 import numpy as np
 
+visualizer_logger = logging.getLogger('MessengerViz.visualizer')
 
 def strip_common(words: list[str], wordlist: list[str]) -> list[str]:
     """
@@ -12,6 +14,7 @@ def strip_common(words: list[str], wordlist: list[str]) -> list[str]:
     :param wordlist: List of words to remove from `words`
     :return: words - wordlist
     """
+    visualizer_logger.debug("Filtering %d words from dataset.", len(wordlist))
     return [word.lower() for word in words if word.lower() not in wordlist]
 
 
@@ -30,6 +33,7 @@ def plot_frequency(filepath: str, title: str, x_label: str, y_label: str, data: 
     plt.title(title)
     plt.ylabel(x_label)
     plt.xlabel(y_label)
+    visualizer_logger.debug('Saving frequency chart to: %s', filepath)
     plt.savefig(filepath)
     plt.show()
 
@@ -45,6 +49,7 @@ def plot_message_type_balance(filepath: str, sender: str, data: List[str], label
     """
     plt.pie(data, labels=label)
     plt.title("Message Balance for " + sender)
+    visualizer_logger.debug('Saving message balance chart to: %s', filepath)
     plt.savefig(filepath)
     plt.show()
 
@@ -67,4 +72,5 @@ def plot_word_frequency(filepath: str, conversation: str, wordlist: Union[list[s
         print(str(key) + ":" + str(val))
 
     freq.plot(50, cumulative=False, title="Word Frequency Across Data Set")
+    visualizer_logger.debug('Saving word frequency chart to: %s', filepath)
     figure.savefig(filepath, bbox_inches="tight")
