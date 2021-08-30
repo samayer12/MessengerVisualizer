@@ -2,6 +2,7 @@ import argparse
 import getopt
 import logging
 import os
+from typing import List
 
 from report_generator_project_files import report_util
 from src.Conversation import Conversation
@@ -38,11 +39,12 @@ def graph_data(outputdir: str, conversation_data: Conversation, wordlist: list[s
         )
 
 
-def print_messages(conversation_data: Conversation) -> None:
+def print_messages(conversation_data: Conversation) -> List[str]:
     print(conversation_data.get_messages())
     print(conversation_data.get_messages_by_sender())
     print(conversation_data.get_by_day())
     print(conversation_data.get_csv())
+    return conversation_data.get_csv()
 
 
 def write_messages(outputdir: str, conversation_data: Conversation) -> None:
@@ -53,7 +55,7 @@ def write_messages(outputdir: str, conversation_data: Conversation) -> None:
     output.write_txt_file(outputdir, "Messages_as_table.csv", conversation_data.get_csv())
 
 
-def main() -> None:
+def main() -> List[str]:
     # Parse Arguments
     parser = argparse.ArgumentParser(description="Visualize FB messenger data from .json files")
     parser.add_argument(
@@ -128,35 +130,45 @@ def main() -> None:
         logger.error('Received invalid directory specification: %s', outputdir)
         parser.print_help()
         raise getopt.GetoptError('Received invalid directory specification.')
+    return print_messages(conversation)
 
 
-def generate_report():
+def generate_report(table_data):
     report = report_util.Report('Facebook Messenger Data Visualization')
-    section1 = report.add_section('A section')
+    section1 = report.add_section('Overview')
     para1 = section1.add_paragraph()
-    para1.append('Test')
+    para1.append(
+        'This project proposal builds upon an existing project that visualizes Facebook Messenger data. '
+        'Source data comes from Facebook Messenger data that individuals may download from their own profile. '
+        'This data is passed to a command-line utility written in Python. '
+        'Reference: https://github.com/samayer12/MessengerVisualizer for the existing state of the project. '
+    )
 
-    section2 = report.add_section('B section')
+    section2 = report.add_section('Frequency Analysis')
     para2 = section2.add_paragraph()
-    para2.append('Testing')
+    para2.append('This section describes the frequency of words, and the time of day/week when messages are sent.')
 
-    section3 = report.add_section('C section')
+    section3 = report.add_section('Balance Section')
     para3 = section3.add_paragraph()
-    para3.append('Tested')
-    table3 = section3.add_table()
-    table3.caption = 'Data listing'
-    table3.set_header(['first', 'second', 'third'])
-    table3.set_data([[1,2,3],[4,5,6]])
-    para3.append_cross_reference(table3)
+    para3.append('This section describes the relative balance by content type for each sender and for the '
+                 'conversation as a whole.')
     para3.append('More words here.')
 
+    section4 = report.add_section('Source Messages')
+    para4 = section4.add_paragraph()
+    para4.append('This section contains raw source data as a table.')
+    table4 = section4.add_table()
+    table4.caption = 'Data listing'
+    table4.set_header(table_data[0])
+    table4.set_data(table_data[1:])
+    para4.append_cross_reference(table4)
 
     return report
 
 
 if __name__ == "__main__":
-    main()
-    report = generate_report()
+    table_data = main()
+    report = generate_report(table_data)
 
     html_generator = report_util.HTMLReportContext("")
     html_generator.generate(report, "example")
