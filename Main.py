@@ -4,6 +4,8 @@ import logging
 import os
 from typing import List
 
+import numpy
+
 from report_generator_project_files import report_util
 from src.Conversation import Conversation
 from src.FileIO import FileIO
@@ -134,34 +136,92 @@ def main() -> List[str]:
 
 
 def generate_report(table_data):
-    report = report_util.Report('Facebook Messenger Data Visualization')
-    section1 = report.add_section('Overview')
-    para1 = section1.add_paragraph()
-    para1.append(
+    dataset = numpy.random.randn(50)
+    report = report_util.Report("Random Number Dataset Report")
+
+    section = report.add_section("Overview")
+
+    paragraph = section.add_paragraph()
+    paragraph.append(
         'This project proposal builds upon an existing project that visualizes Facebook Messenger data. '
         'Source data comes from Facebook Messenger data that individuals may download from their own profile. '
         'This data is passed to a command-line utility written in Python. '
         'Reference: https://github.com/samayer12/MessengerVisualizer for the existing state of the project. '
     )
 
-    section2 = report.add_section('Frequency Analysis')
+    section2 = report.add_section('Balance Section')
     para2 = section2.add_paragraph()
-    para2.append('This section describes the frequency of words, and the time of day/week when messages are sent.')
-
-    section3 = report.add_section('Balance Section')
-    para3 = section3.add_paragraph()
-    para3.append('This section describes the relative balance by content type for each sender and for the '
+    para2.append('This section describes the relative balance by content type for each sender and for the '
                  'conversation as a whole.')
-    para3.append('More words here.')
+    ##########################################################################
+    # Alice_Balance
+    ##########################################################################
+    figure_1 = section2.add_figure()
+    figure_1.caption = "Message Balance for Sender 'Alice'"
+    # notice in the next line we access matplotlib's figure object directly
+    ax = figure_1.matplotlib_figure.add_subplot(1, 1, 1)
+    ax.hist(dataset)
+    ##########################################################################
+    # Bob_Balance
+    ##########################################################################
+    figure_2 = section2.add_figure()
+    figure_2.caption = "Message Balance for Sender 'Bob'"
+    # notice in the next line we access matplotlib's figure object directly
+    ax = figure_2.matplotlib_figure.add_subplot(1, 1, 1)
+    ax.hist(dataset)
+    ##########################################################################
+    # Global Balance
+    ##########################################################################
+    figure_3 = section2.add_figure()
+    figure_3.caption = "Message Balance for All Senders"
+    # notice in the next line we access matplotlib's figure object directly
+    ax = figure_3.matplotlib_figure.add_subplot(1, 1, 1)
+    ax.hist(dataset)
 
+    section3 = report.add_section('Frequency Analysis')
+    para3 = section3.add_paragraph()
+    para3.append('This section describes the frequency of words, and the time of day/week when messages are sent.')
+    ##########################################################################
+    # Frequency_daily
+    ##########################################################################
+    figure_4 = section3.add_figure()
+    figure_4.caption = "Message Frequency by Day of Week"
+    # notice in the next line we access matplotlib's figure object directly
+    ax = figure_4.matplotlib_figure.add_subplot(1, 1, 1)
+    ax.hist(dataset)
+    ##########################################################################
+    # Frequency_hourly
+    ##########################################################################
+    figure_5 = section3.add_figure()
+    figure_5.caption = "Message Frequency by Hour of Day"
+    # notice in the next line we access matplotlib's figure object directly
+    ax = figure_5.matplotlib_figure.add_subplot(1, 1, 1)
+    ax.hist(dataset)
+    ##########################################################################
+    # Frequency_words
+    ##########################################################################
+    figure_6 = section3.add_figure()
+    figure_6.caption = "Message Frequency by Word"
+    # notice in the next line we access matplotlib's figure object directly
+    ax = figure_6.matplotlib_figure.add_subplot(1, 1, 1)
+    ax.hist(dataset)
+    ##########################################################################
+
+    ##########################################################################
+    # The following code demonstrates creating a table
+    ##########################################################################
     section4 = report.add_section('Source Messages')
     para4 = section4.add_paragraph()
-    para4.append('This section contains raw source data as a table.')
     table4 = section4.add_table()
     table4.caption = 'Data listing'
     table4.set_header(table_data[0])
-    table4.set_data(table_data[1:])
+    table4.set_data(table_data[1])
     para4.append_cross_reference(table4)
+    para4.append(' contains raw source data as a table.')
+
+    ##########################################################################
+    # The following code demonstrates creating another section to the report
+    ##########################################################################
 
     return report
 
