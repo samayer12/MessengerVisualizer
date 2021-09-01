@@ -9,7 +9,7 @@ I also experiment with TDD, frameworks like `nltk`, and whatever else is interes
 1. Source the virtual environment with `source venv/bin/activate`.
 1. Within the virtual environment, install project requirements with `pip install -r requirements.txt`.
 1. Create an output directory for the program's `-o` flag, such as `out/`.
-1. Run the program with: `python src/Main.py -i test/Messages/conversation_skeleton.json -o out/ -w util/100_Common_English.txt`
+1. Run the program with: `python Main.py -i test/Messages/conversation_skeleton.json -o out/ -w util/100_Common_English.txt`
 - `-i` - Input file, this is `.json` sourced from Facebook Messenger.
 - `-o` - Output directory for artifacts.
 - `-w` - A wordlist of terms to ignore, if desired.
@@ -30,4 +30,4 @@ Run this locally with: `python -m unittest discover -s MessengerVisualizer/test 
 - `100_Common_English.txt` - A wordlist of the 100 most-common english words.
 - `Custom_List.txt` - A wordlist with additional words to filter out.
 - `ClearDirectory.sh` to delete the contents of `output/` between executions.
-- `MessageType.py` - An enum for MessageType that doesn't to much (yet).
+- `MessageType.py` - An enum for MessageType that doesn't do much (yet).

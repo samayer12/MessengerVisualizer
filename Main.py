@@ -2,7 +2,11 @@ import argparse
 import getopt
 import logging
 import os
+from typing import List
 
+import numpy
+
+from report_generator_project_files import report_util
 from src.Conversation import Conversation
 from src.FileIO import FileIO
 from src.Visualizer import plot_frequency, plot_word_frequency, plot_message_type_balance
@@ -37,11 +41,12 @@ def graph_data(outputdir: str, conversation_data: Conversation, wordlist: list[s
         )
 
 
-def print_messages(conversation_data: Conversation) -> None:
+def print_messages(conversation_data: Conversation) -> List[str]:
     print(conversation_data.get_messages())
     print(conversation_data.get_messages_by_sender())
     print(conversation_data.get_by_day())
     print(conversation_data.get_csv())
+    return conversation_data.get_csv()
 
 
 def write_messages(outputdir: str, conversation_data: Conversation) -> None:
@@ -52,7 +57,7 @@ def write_messages(outputdir: str, conversation_data: Conversation) -> None:
     output.write_txt_file(outputdir, "Messages_as_table.csv", conversation_data.get_csv())
 
 
-def main() -> None:
+def main() -> List[str]:
     # Parse Arguments
     parser = argparse.ArgumentParser(description="Visualize FB messenger data from .json files")
     parser.add_argument(
@@ -127,7 +132,116 @@ def main() -> None:
         logger.error('Received invalid directory specification: %s', outputdir)
         parser.print_help()
         raise getopt.GetoptError('Received invalid directory specification.')
+    return print_messages(conversation)
+
+
+def generate_report(table_data):
+    dataset = numpy.random.randn(50)
+    report = report_util.Report("Facebook Messenger Data Visualization")
+
+    section = report.add_section("Overview")
+
+    paragraph = section.add_paragraph()
+    paragraph.append(
+        'This project proposal builds upon an existing project that visualizes Facebook Messenger data. '
+        'Source data comes from Facebook Messenger data that individuals may download from their own profile. '
+        'This data is passed to a command-line utility written in Python. '
+        'Reference: https://github.com/samayer12/MessengerVisualizer for the existing state of the project. '
+    )
+
+    section2 = report.add_section('Balance Section')
+    para2 = section2.add_paragraph()
+    para2.append('This section describes the relative balance by content type for each sender and for the '
+                 'conversation as a whole.')
+    ##########################################################################
+    # Alice_Balance
+    ##########################################################################
+    figure_1 = section2.add_figure()
+    figure_1.caption = "Message Balance for Sender 'Alice'"
+    # notice in the next line we access matplotlib's figure object directly
+    ax = figure_1.matplotlib_figure.add_subplot(1, 1, 1)
+    ax.hist(dataset)
+    para2.append_cross_reference(figure_1)
+    para2.append(' shows the message balance for Alice. ')
+    ##########################################################################
+    # Bob_Balance
+    ##########################################################################
+    figure_2 = section2.add_figure()
+    figure_2.caption = "Message Balance for Sender 'Bob'"
+    # notice in the next line we access matplotlib's figure object directly
+    ax = figure_2.matplotlib_figure.add_subplot(1, 1, 1)
+    ax.hist(dataset)
+    para2.append_cross_reference(figure_2)
+    para2.append(' shows the message balance for Bob. ')
+    ##########################################################################
+    # Global Balance
+    ##########################################################################
+    figure_3 = section2.add_figure()
+    figure_3.caption = "Message Balance for All Senders"
+    # notice in the next line we access matplotlib's figure object directly
+    ax = figure_3.matplotlib_figure.add_subplot(1, 1, 1)
+    ax.hist(dataset)
+    para2.append_cross_reference(figure_3)
+    para2.append(' describes the message balance for all participants.')
+
+    section3 = report.add_section('Frequency Analysis')
+    para3 = section3.add_paragraph()
+    para3.append('This section describes the frequency of words, and the time of day/week when messages are sent. ')
+    ##########################################################################
+    # Frequency_daily
+    ##########################################################################
+    figure_4 = section3.add_figure()
+    figure_4.caption = "Message Frequency by Day of Week"
+    # notice in the next line we access matplotlib's figure object directly
+    ax = figure_4.matplotlib_figure.add_subplot(1, 1, 1)
+    ax.hist(dataset)
+    para3.append_cross_reference(figure_4)
+    para3.append(' shows the number of messages sent during each day of the week.')
+    ##########################################################################
+    # Frequency_hourly
+    ##########################################################################
+    para3.append('This sections provide time and word frequency data for the converstation. ')
+    figure_5 = section3.add_figure()
+    figure_5.caption = "Message Frequency by Hour of Day"
+    # notice in the next line we access matplotlib's figure object directly
+    ax = figure_5.matplotlib_figure.add_subplot(1, 1, 1)
+    ax.hist(dataset)
+    para3.append_cross_reference(figure_5)
+    para3.append(' shows the number of messages sent during each hour of the day. ')
+    ##########################################################################
+    # Frequency_words
+    ##########################################################################
+    figure_6 = section3.add_figure()
+    figure_6.caption = "Message Frequency by Word"
+    # notice in the next line we access matplotlib's figure object directly
+    ax = figure_6.matplotlib_figure.add_subplot(1, 1, 1)
+    ax.hist(dataset)
+    para3.append_cross_reference(figure_6)
+    para3.append(' shows the frequency of the unique words that appeared in the conversation data.')
+    ##########################################################################
+
+    ##########################################################################
+    # The following code demonstrates creating a table
+    ##########################################################################
+    section4 = report.add_section('Source Messages')
+    para5 = section4.add_paragraph()
+    table4 = section4.add_table()
+    table4.caption = 'Data listing'
+    table4.set_header(table_data[0])
+    table4.set_data(table_data[1])
+    para5.append_cross_reference(table4)
+    para5.append(' contains raw source data as a table.')
+
+    ##########################################################################
+    # The following code demonstrates creating another section to the report
+    ##########################################################################
+
+    return report
 
 
 if __name__ == "__main__":
-    main()
+    table_data = main()
+    report = generate_report(table_data)
+
+    html_generator = report_util.HTMLReportContext("")
+    html_generator.generate(report, "out/Mayer_report")

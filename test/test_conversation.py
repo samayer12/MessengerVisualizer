@@ -124,13 +124,13 @@ class ProcessingTest(unittest.TestCase):
         raw_text = self.conversation.get_csv()
 
         self.assertEqual(
-            u"date,hour,minute,second,sender,message\n"
-            u"2019-08-23,21,32,23,Alice,\"Hello, Bob\"\n"
-            u"2019-08-26,09,22,29,Bob,\"Hello, Alice.\"\n"
-            u"2019-08-29,04,22,29,Alice,\"How are you?\"\n"
-            u"2019-08-30,04,22,29,Bob,\"I am well, thank you.\"\n"
-            u"2019-09-01,04,22,29,Alice,\"I am glad to hear that.\"\n",
-            raw_text,
+            (["date", "hour", "minute", "second", "sender", "message"],
+             [['2019-08-23', '21', '32', '23', 'Alice', '"Hello, Bob"'],
+              ['2019-08-26', '09', '22', '29', 'Bob', '"Hello, Alice."'],
+              ['2019-08-29', '04', '22', '29', 'Alice', '"How are you?"'],
+              ['2019-08-30', '04', '22', '29', 'Bob', '"I am well, thank you."'],
+              ['2019-09-01', '04', '22', '29', 'Alice', '"I am glad to hear that."']]),
+            raw_text
         )
 
     def test_get_messages_by_sender(self):
