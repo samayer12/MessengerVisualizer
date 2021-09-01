@@ -1,7 +1,7 @@
 import datetime
 import logging
 from collections import defaultdict
-from typing import Dict, Any
+from typing import Dict, Any, List
 
 message_logger = logging.getLogger('MessengerViz.message')
 
@@ -84,8 +84,10 @@ class Message:
         """
         return f"{self.get_datetime()}: {self.sender_name}: {self.content}\n"
 
-    def format_csv(self) -> str:
+    def format_csv(self) -> List[str]:
         """
         :return: A standard chatlog message ready for .csv processing as a table
         """
-        return f"{self.get_datetime().replace(' ',',').replace(':', ',')},{self.sender_name},\"{self.content}\"\n"
+        result = f"{self.get_datetime().replace(' ',',').replace(':', ',')},{self.sender_name}".split(',')
+        result.append(f"\"{self.content}\"")
+        return result
