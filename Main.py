@@ -137,7 +137,7 @@ def main() -> List[str]:
 
 def generate_report(table_data):
     dataset = numpy.random.randn(50)
-    report = report_util.Report("Random Number Dataset Report")
+    report = report_util.Report("Facebook Messenger Data Visualization")
 
     section = report.add_section("Overview")
 
@@ -161,6 +161,8 @@ def generate_report(table_data):
     # notice in the next line we access matplotlib's figure object directly
     ax = figure_1.matplotlib_figure.add_subplot(1, 1, 1)
     ax.hist(dataset)
+    para2.append_cross_reference(figure_1)
+    para2.append(' shows the message balance for Alice. ')
     ##########################################################################
     # Bob_Balance
     ##########################################################################
@@ -169,6 +171,8 @@ def generate_report(table_data):
     # notice in the next line we access matplotlib's figure object directly
     ax = figure_2.matplotlib_figure.add_subplot(1, 1, 1)
     ax.hist(dataset)
+    para2.append_cross_reference(figure_2)
+    para2.append(' shows the message balance for Bob. ')
     ##########################################################################
     # Global Balance
     ##########################################################################
@@ -177,10 +181,12 @@ def generate_report(table_data):
     # notice in the next line we access matplotlib's figure object directly
     ax = figure_3.matplotlib_figure.add_subplot(1, 1, 1)
     ax.hist(dataset)
+    para2.append_cross_reference(figure_3)
+    para2.append(' describes the message balance for all participants.')
 
     section3 = report.add_section('Frequency Analysis')
     para3 = section3.add_paragraph()
-    para3.append('This section describes the frequency of words, and the time of day/week when messages are sent.')
+    para3.append('This section describes the frequency of words, and the time of day/week when messages are sent. ')
     ##########################################################################
     # Frequency_daily
     ##########################################################################
@@ -189,14 +195,19 @@ def generate_report(table_data):
     # notice in the next line we access matplotlib's figure object directly
     ax = figure_4.matplotlib_figure.add_subplot(1, 1, 1)
     ax.hist(dataset)
+    para3.append_cross_reference(figure_4)
+    para3.append(' shows the number of messages sent during each day of the week.')
     ##########################################################################
     # Frequency_hourly
     ##########################################################################
+    para3.append('This sections provide time and word frequency data for the converstation. ')
     figure_5 = section3.add_figure()
     figure_5.caption = "Message Frequency by Hour of Day"
     # notice in the next line we access matplotlib's figure object directly
     ax = figure_5.matplotlib_figure.add_subplot(1, 1, 1)
     ax.hist(dataset)
+    para3.append_cross_reference(figure_5)
+    para3.append(' shows the number of messages sent during each hour of the day. ')
     ##########################################################################
     # Frequency_words
     ##########################################################################
@@ -205,19 +216,21 @@ def generate_report(table_data):
     # notice in the next line we access matplotlib's figure object directly
     ax = figure_6.matplotlib_figure.add_subplot(1, 1, 1)
     ax.hist(dataset)
+    para3.append_cross_reference(figure_6)
+    para3.append(' shows the frequency of the unique words that appeared in the conversation data.')
     ##########################################################################
 
     ##########################################################################
     # The following code demonstrates creating a table
     ##########################################################################
     section4 = report.add_section('Source Messages')
-    para4 = section4.add_paragraph()
+    para5 = section4.add_paragraph()
     table4 = section4.add_table()
     table4.caption = 'Data listing'
     table4.set_header(table_data[0])
     table4.set_data(table_data[1])
-    para4.append_cross_reference(table4)
-    para4.append(' contains raw source data as a table.')
+    para5.append_cross_reference(table4)
+    para5.append(' contains raw source data as a table.')
 
     ##########################################################################
     # The following code demonstrates creating another section to the report
@@ -231,4 +244,4 @@ if __name__ == "__main__":
     report = generate_report(table_data)
 
     html_generator = report_util.HTMLReportContext("")
-    html_generator.generate(report, "example")
+    html_generator.generate(report, "out/Mayer_report")
