@@ -4,8 +4,6 @@ import logging
 import os
 from typing import List
 
-import numpy
-
 from src.Conversation import Conversation
 from src.FileIO import FileIO
 from src.Visualizer import plot_frequency, plot_word_frequency, plot_message_type_balance
@@ -40,12 +38,11 @@ def graph_data(outputdir: str, conversation_data: Conversation, wordlist: list[s
         )
 
 
-def print_messages(conversation_data: Conversation) -> List[str]:
+def print_messages(conversation_data: Conversation) -> None:
     print(conversation_data.get_messages())
     print(conversation_data.get_messages_by_sender())
     print(conversation_data.get_by_day())
     print(conversation_data.get_csv())
-    return conversation_data.get_csv()
 
 
 def write_messages(outputdir: str, conversation_data: Conversation) -> None:
