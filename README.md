@@ -29,8 +29,4 @@ Run this locally with: `python -m unittest discover -s MessengerVisualizer/test 
 - `100_Common_English.txt` - A wordlist of the 100 most-common english words.
 - `Custom_List.txt` - A wordlist with additional words to filter out.
 - `ClearDirectory.sh` to delete the contents of `output/` between executions.
-<<<<<<< HEAD
-- `MessageType.py` - An enum for MessageType that doesn't to much (yet).
-=======
 - `MessageType.py` - An enum for MessageType that doesn't do much (yet).
->>>>>>> 0a65828 (Specify that project must run from project root)
